@@ -1,0 +1,275 @@
+{
+  "fetchgit": {
+    "https://github.com/kholia/OSX-KVM.git": {
+      "rev": "faa8a5d6eac41d893275f2beba30fded2a4ec51d",
+      "sha256": "1zbfv8m2m3347rdffqxzfbxrvcipip43cl3nl4krckkfwm3bpyz1",
+      "url": "https://github.com/kholia/OSX-KVM.git"
+    },
+    "https://github.com/rebeccajae/plist2json.git#default": {
+      "rev": "c56ccd1ea424d6646801c51489b3af253a6bc101",
+      "sha256": "1vb6mjdqw5bz8yfl3bgyxq9jnqn2xng18pd59kv35hblib4mcxqi",
+      "url": "https://github.com/rebeccajae/plist2json.git"
+    }
+  },
+  "fetchurl": {
+    "http://swcdn.apple.com/content/downloads/01/28/061-86291-A_JPEIWIOZES/enpozvvbmj3mj2dhulhevlt8b429qd5kw0/InstallAssistantAuto.smd": {
+      "etag": "\"75E83DA4718AF05AF9E9D2F411933704-1\"",
+      "last-modified": "Mon, 23 Mar 2020 21:17:37 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "05wl2f8m044qwpnsjxl2av50j7wzp5b7snv3z76ldc8z1c33wfk6",
+      "url": "http://swcdn.apple.com/content/downloads/01/28/061-86291-A_JPEIWIOZES/enpozvvbmj3mj2dhulhevlt8b429qd5kw0/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/06/50/041-91758-A_M8T44LH2AW/b5r4og05fhbgatve4agwy4kgkzv07mdid9/InstallAssistantAuto.smd": {
+      "etag": "\"DB009DD3B4EEE4BC7BD643AB7E60A3BE-1\"",
+      "last-modified": "Wed, 02 Oct 2019 06:36:55 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "15sfxpghchmb8y9370l0irzvmhrlsnl0nrmnwfg9s2x5zcn2vv4w",
+      "url": "http://swcdn.apple.com/content/downloads/06/50/041-91758-A_M8T44LH2AW/b5r4og05fhbgatve4agwy4kgkzv07mdid9/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/08/44/041-90855-A_452WLVQACP/mzfvoi59bljh3w4w4lvwenfk0r1a2f7212/InstallAssistantAuto.smd": {
+      "etag": "\"76CAF7171B5C1F4617C58C4CD08DB33E-1\"",
+      "last-modified": "Wed, 02 Oct 2019 11:14:09 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "0l4y43xqwdv85a54q5myrb8akrpbdwdv6yriz6vx3i6i2dz71qkn",
+      "url": "http://swcdn.apple.com/content/downloads/08/44/041-90855-A_452WLVQACP/mzfvoi59bljh3w4w4lvwenfk0r1a2f7212/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/10/06/001-36801-A_9MBEQ97Z9M/672a1q4u8978ize3s15ygivp2dqwmk10qb/InstallAssistantAuto.smd": {
+      "etag": "\"4F3A487D1ACAF7ECAEDC5643CDED8011-1\"",
+      "last-modified": "Tue, 11 Aug 2020 02:03:10 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "0fhkc0j9iffvm70fxcd5rsm08pb8qilj9x1ndj52zk8b4ik57ynn",
+      "url": "http://swcdn.apple.com/content/downloads/10/06/001-36801-A_9MBEQ97Z9M/672a1q4u8978ize3s15ygivp2dqwmk10qb/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/17/32/061-26589-A_8GJTCGY9PC/25fhcu905eta7wau7aoafu8rvdm7k1j4el/InstallAssistantAuto.smd": {
+      "etag": "\"B12BC29A4CF520017A6F9F3B7DA2A24A-1\"",
+      "last-modified": "Thu, 03 Oct 2019 19:35:12 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "19sjqm461c64xxjd7ah3y2rqi5qxcdni7mrsvgprkkw12pqxnmva",
+      "url": "http://swcdn.apple.com/content/downloads/17/32/061-26589-A_8GJTCGY9PC/25fhcu905eta7wau7aoafu8rvdm7k1j4el/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/20/55/001-51042-A_2EJTJOSUC2/rsvf13iphg5lvcqcysqcarv8cvddq8igek/InstallAssistantAuto.smd": {
+      "etag": "\"B2703AB3B4412A97643E0E1F96127CA2-1\"",
+      "last-modified": "Tue, 22 Sep 2020 16:56:28 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "1ljg1dgygrz905jaz4lr8n56dcwx8g5fmkk1rar9xcr2palv68fp",
+      "url": "http://swcdn.apple.com/content/downloads/20/55/001-51042-A_2EJTJOSUC2/rsvf13iphg5lvcqcysqcarv8cvddq8igek/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/23/45/001-36735-A_IRCLJ5YYKF/z8vka6xfykydycui5b7atpc52btxmbffdn/InstallAssistantAuto.smd": {
+      "etag": "\"E0CC4B0C24E1C03923B148CD2F781BAE-1\"",
+      "last-modified": "Thu, 06 Aug 2020 21:45:41 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "14qs0g5av4j19wnx1jzwkm0x4zgzpqqib939dgpkqaly4aapsslg",
+      "url": "http://swcdn.apple.com/content/downloads/23/45/001-36735-A_IRCLJ5YYKF/z8vka6xfykydycui5b7atpc52btxmbffdn/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/AppleDiagnostics.chunklist": {
+      "etag": "\"3BAA57595632383CDF6FADC73E83B479-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:44 GMT",
+      "name": "AppleDiagnostics.chunklist",
+      "sha256": "0ajpm8bz2ki7q6gnjd24mix5vn5b9gssl5pjvw4lqsasab9760s7",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/AppleDiagnostics.chunklist"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/AppleDiagnostics.dmg": {
+      "etag": "\"F763190A458F36FA4FE52A6C6700C242-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:44 GMT",
+      "name": "AppleDiagnostics.dmg",
+      "sha256": "1ny0hmbjxsbg4fg20069r5ic27f6x017g6xbj2rd6yv17cdjwckv",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/AppleDiagnostics.dmg"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/AppleDiagnostics.dmg.integrityDataV1": {
+      "etag": "\"1CABA33AD61CD42B11CFC4CD47971A4B-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:44 GMT",
+      "name": "AppleDiagnostics.dmg.integrityDataV1",
+      "sha256": "1cnhfii40927a7y7lc6lfb132nf79y3ga923488dzndm05w3hfbj",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/AppleDiagnostics.dmg.integrityDataV1"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.chunklist": {
+      "etag": "\"737B58E3BA2A4023625E02785AB66DAD-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:44 GMT",
+      "name": "BaseSystem.chunklist",
+      "sha256": "02fshr1jbq5akcklmg434knhv2i6f4kqgnnz1k265zzw0nk5g4wn",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.chunklist"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.dmg": {
+      "etag": "\"76A63F2ADA06FD857D13821E2F958F76-8\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:44 GMT",
+      "name": "BaseSystem.dmg",
+      "sha256": "10dhcnspgs38221ihnxhm5msx8ljairpxbhkkxydcyph3m6xixyg",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.dmg"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.dmg.integrityDataV1": {
+      "etag": "\"6443116F2CA4F854FA77BEEA24790F4F-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:44 GMT",
+      "name": "BaseSystem.dmg.integrityDataV1",
+      "sha256": "0i0sf2vzj288ijwirvxkn7mkylnyw1ak15iqn6pj0z97cm9im1nd",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.dmg.integrityDataV1"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkg": {
+      "etag": "\"637062B52D8533D450F4858E433EFBB9-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:45 GMT",
+      "name": "InstallAssistantAuto.pkg",
+      "sha256": "0jnp16blq5whgi4jx0si5yrxmy67ak2gsmwpmjpzxsdcxh5rsah1",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkg"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkg.integrityDataV1": {
+      "etag": "\"F524335215F4F91BB18CABC1CD4EFBB8-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:45 GMT",
+      "name": "InstallAssistantAuto.pkg.integrityDataV1",
+      "sha256": "1ph1c84wmnfg35zzlpjzv3ajafbwfgkpqm14gsqrmsdw2fzykihh",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkg.integrityDataV1"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.smd": {
+      "etag": "\"B2703AB3B4412A97643E0E1F96127CA2-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:45 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "1ljg1dgygrz905jaz4lr8n56dcwx8g5fmkk1rar9xcr2palv68fp",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.chunklist": {
+      "etag": "\"C0A910363CE55FE52038A2C176AD41EC-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:45 GMT",
+      "name": "InstallESDDmg.chunklist",
+      "sha256": "050xm5x85v8f6p618qlznrcf0rk2zq552xm9vqiqdb7af2rcw6q4",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.chunklist"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkg": {
+      "etag": "\"A40ED171C019F0C0C7DA21CD7755948A-116\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
+      "name": "InstallESDDmg.pkg",
+      "sha256": "15ic876y64vg1hr71jpiplzbipdfidmwaw0s1grgp9psxcgac188",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkg"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkg.integrityDataV1": {
+      "etag": "\"3D65BB5E617A554C4F20BBA7769CE115-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
+      "name": "InstallESDDmg.pkg.integrityDataV1",
+      "sha256": "1c8s0ayp0a5jl2absbmqynkcdif97883pigckikwxvq2wdcwvazd",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkg.integrityDataV1"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallInfo.plist": {
+      "etag": "\"DED1314CEFB9CF34C154E85725ABE4AC-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
+      "name": "InstallInfo.plist",
+      "sha256": "0kmg15ig763qrxp6mqi9wymjac61gi7wspmyhkckrnjiip767d95",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallInfo.plist"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkg": {
+      "etag": "\"989A1829996F3776DC4D677A28B080D3-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:39 GMT",
+      "name": "MajorOSInfo.pkg",
+      "sha256": "1fn9833xhayxsc5jq07xbmhh60880f74p3f1401d3yfr5js073hh",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkg"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkg.integrityDataV1": {
+      "etag": "\"2407579B91F27E0D45F4D94AA5E08BB6-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
+      "name": "MajorOSInfo.pkg.integrityDataV1",
+      "sha256": "1gzsxlvy0lcj5p28d1s31yahd1gah6xfnrq0ymf8n9vxlm9kdfqr",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkg.integrityDataV1"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/OSInstall.mpkg": {
+      "etag": "\"9FAAB5E362E7BFEF258098B41A1D58C3-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:47 GMT",
+      "name": "OSInstall.mpkg",
+      "sha256": "0wcqkpyjgji860hc168dxqfm98vfngiijjipfs056rs99bzcv02a",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/OSInstall.mpkg"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/OSInstall.mpkg.integrityDataV1": {
+      "etag": "\"19EA55D4BAE2AD5EEFE1ADDB2AE9FC8E-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:47 GMT",
+      "name": "OSInstall.mpkg.integrityDataV1",
+      "sha256": "0azinbc4n8mlkbankc5692rkfk2gk1mv4019kwnc1qnf7c1mjnjh",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/OSInstall.mpkg.integrityDataV1"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkg": {
+      "etag": "\"711DF3F3F5F1093D57CA6186CEE68131-8\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:47 GMT",
+      "name": "RecoveryHDMetaDmg.pkg",
+      "sha256": "0r924b9y2kqiy32rry4s9v44wsr0rj7b3pygvsjm01b6a2h1ghk3",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkg"
+    },
+    "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkg.integrityDataV1": {
+      "etag": "\"FD595EDAAD06676DEDECD9E39D3D252D-1\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:47 GMT",
+      "name": "RecoveryHDMetaDmg.pkg.integrityDataV1",
+      "sha256": "0d5a2d5qm3jszjgk9lmcx61p6x9h2vm278smwasbi9004i36cp5m",
+      "url": "http://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkg.integrityDataV1"
+    },
+    "http://swcdn.apple.com/content/downloads/34/54/041-88800-A_HLMBDM42FL/anrmoj880qkj0lbybqm0c3830p70nawjrv/InstallAssistantAuto.smd": {
+      "etag": "\"9AE2F67D8513AEC6427768690538B28C-1\"",
+      "last-modified": "Thu, 17 Oct 2019 00:07:38 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "0r277frpyd7mnn17pjxgx2ncmp7rx8800m301vsfk4jv9i6n4yqz",
+      "url": "http://swcdn.apple.com/content/downloads/34/54/041-88800-A_HLMBDM42FL/anrmoj880qkj0lbybqm0c3830p70nawjrv/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/37/41/001-04366/a6boefh8b6bee4k2x6v5lwyfjr7od2ica3/InstallAssistantAuto.smd": {
+      "etag": "\"85F5CB135EABB845259D4ABA70EF71D9-1\"",
+      "last-modified": "Mon, 04 May 2020 15:15:17 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "14zzvaarxmkk4xk7kb5hpf1xb7g345vzpz2155frgyqjwq9x3w2g",
+      "url": "http://swcdn.apple.com/content/downloads/37/41/001-04366/a6boefh8b6bee4k2x6v5lwyfjr7od2ica3/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/41/23/061-26578-A_FF0C6M87LS/ylvl0phx6uy3i444qt9p57n8wz0xnylmd9/InstallAssistantAuto.smd": {
+      "etag": "\"234D56B6F7BD737F58B0D4AF6708E53A-1\"",
+      "last-modified": "Fri, 04 Oct 2019 00:26:14 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "0zv8bsq45fzc289gfx3siq5482qc959bw0bml72rjdyklakmv89d",
+      "url": "http://swcdn.apple.com/content/downloads/41/23/061-26578-A_FF0C6M87LS/ylvl0phx6uy3i444qt9p57n8wz0xnylmd9/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/59/18/001-15219-A_EE9FN7UHJA/efuz3h0zlmx4qlinf4bxlguigo9jvhcr55/InstallAssistantAuto.smd": {
+      "etag": "\"784A28317C92BF02CD49A013161E85A6-1\"",
+      "last-modified": "Mon, 08 Jun 2020 18:42:44 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "11d3w1yh1rww4n5x257bpa8br0vpgmnhamr93paj5an7abj8mhmf",
+      "url": "http://swcdn.apple.com/content/downloads/59/18/001-15219-A_EE9FN7UHJA/efuz3h0zlmx4qlinf4bxlguigo9jvhcr55/InstallAssistantAuto.smd"
+    },
+    "http://swcdn.apple.com/content/downloads/61/24/001-57224/0o1xetys5n505gocjsil5qo0p4kg939elb/InstallAssistantAuto.smd": {
+      "etag": "\"B2703AB3B4412A97643E0E1F96127CA2-1\"",
+      "last-modified": "Tue, 27 Oct 2020 17:04:04 GMT",
+      "name": "InstallAssistantAuto.smd",
+      "sha256": "1ljg1dgygrz905jaz4lr8n56dcwx8g5fmkk1rar9xcr2palv68fp",
+      "url": "http://swcdn.apple.com/content/downloads/61/24/001-57224/0o1xetys5n505gocjsil5qo0p4kg939elb/InstallAssistantAuto.smd"
+    },
+    "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/001-68446.English.dist": {
+      "etag": "\"230c-5b3c8f0ebefac\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:40 GMT",
+      "name": "001-68446.English.dist",
+      "sha256": "0wa78adyhqw9dv7jnqllx5w8s0kl19fkz5w175hzrrchkk0bqvkc",
+      "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/001-68446.English.dist"
+    },
+    "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkm": {
+      "etag": "\"f59-5b3c8f1390b8c\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:45 GMT",
+      "name": "InstallAssistantAuto.pkm",
+      "sha256": "09z6zsalddaxxgxpr1gmh7pw30k3bi6mp09j3j37rbdbzcm9f7gc",
+      "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkm"
+    },
+    "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkm": {
+      "etag": "\"174-5b3c8f1474866\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
+      "name": "InstallESDDmg.pkm",
+      "sha256": "0q9j7jgcwkvl2fil12pcvrdl836cg2wrj43lna3s338lyfn1zgdb",
+      "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkm"
+    },
+    "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkm": {
+      "etag": "\"23d-5b3c8f14fb4cc\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
+      "name": "MajorOSInfo.pkm",
+      "sha256": "01d216rn578vkp2050mskdn2g13kv2sgp01aw2ff1jk32wp9kkq8",
+      "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkm"
+    },
+    "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkm": {
+      "etag": "\"174-5b3c8f15ef37b\"",
+      "last-modified": "Tue, 10 Nov 2020 23:21:47 GMT",
+      "name": "RecoveryHDMetaDmg.pkm",
+      "sha256": "1zmvgcbqchizkp32ixaj9xnj2q25brh0riw43pr1w2p9mjqbv41x",
+      "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkm"
+    },
+    "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
+      "etag": "\"7AB4E93C8235562D818F97010BB65FB6\"",
+      "last-modified": "Sun, 28 Feb 2021 01:21:40 GMT",
+      "name": "index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
+      "sha256": "0rb2xs631fxsykv7vdhlyisp00856gbkq3c3gdl8pbn9vswdz5vm",
+      "url": "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
+    }
+  }
+}
