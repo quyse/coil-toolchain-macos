@@ -1,8 +1,8 @@
 {
   "fetchgit": {
     "https://github.com/kholia/OSX-KVM.git": {
-      "rev": "faa8a5d6eac41d893275f2beba30fded2a4ec51d",
-      "sha256": "1zbfv8m2m3347rdffqxzfbxrvcipip43cl3nl4krckkfwm3bpyz1",
+      "rev": "720dd06e38ec97b38e7a818b4cee3ba0ad7eb211",
+      "sha256": "043avzr2ljbpmik9iy3cgyx1p8475zndjlkxrz50m9bisdzrx0jg",
       "url": "https://github.com/kholia/OSX-KVM.git"
     },
     "https://github.com/rebeccajae/plist2json.git#default": {
