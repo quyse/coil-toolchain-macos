@@ -162,21 +162,10 @@ in rec {
     inherit fixeds;
   };
 
-  saveJson = name: obj: pkgs.runCommand name {} ''
-    ${pkgs.jq}/bin/jq -S < ${pkgs.writeText name (builtins.toJSON obj)} > $out
-  '';
-
   qemu = pkgs.qemu_kvm;
   libguestfs = pkgs.libguestfs-with-appliance.override {
     inherit qemu; # no need to use full qemu
   };
-  hfsprogs = pkgs.hfsprogs.overrideAttrs (attrs: {
-    postPatch = (attrs.postPatch or "") + ''
-      sed -ie "s?/usr/share/hfsprogs/hfsbootdata?$out/share/hfsprogs/hfsbootdata?" newfs_hfs.tproj/makehfs.c 
-    '';
-  });
 
   packages = macosPackages { version = "10.15.7"; };
-  catalogJSON = saveJson "catalog.json" catalog;
-  installersJSON = saveJson "installers.json" allInstallers;
 }
