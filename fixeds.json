@@ -1,7 +1,7 @@
 {
   "fetchgit": {
     "https://github.com/kholia/OSX-KVM.git": {
-      "rev": "720dd06e38ec97b38e7a818b4cee3ba0ad7eb211",
+      "rev": "5e3a412156a3a87de54dca10d1909192ca396309",
       "sha256": "043avzr2ljbpmik9iy3cgyx1p8475zndjlkxrz50m9bisdzrx0jg",
       "url": "https://github.com/kholia/OSX-KVM.git"
     },
@@ -49,14 +49,14 @@
     },
     "http://swcdn.apple.com/content/downloads/20/55/001-51042-A_2EJTJOSUC2/rsvf13iphg5lvcqcysqcarv8cvddq8igek/InstallAssistantAuto.smd": {
       "etag": "\"B2703AB3B4412A97643E0E1F96127CA2-1\"",
-      "last-modified": "Tue, 22 Sep 2020 16:56:28 GMT",
+      "last-modified": "Tue, 22 Sep 2020 16:56:29 GMT",
       "name": "InstallAssistantAuto.smd",
       "sha256": "1ljg1dgygrz905jaz4lr8n56dcwx8g5fmkk1rar9xcr2palv68fp",
       "url": "http://swcdn.apple.com/content/downloads/20/55/001-51042-A_2EJTJOSUC2/rsvf13iphg5lvcqcysqcarv8cvddq8igek/InstallAssistantAuto.smd"
     },
     "http://swcdn.apple.com/content/downloads/23/45/001-36735-A_IRCLJ5YYKF/z8vka6xfykydycui5b7atpc52btxmbffdn/InstallAssistantAuto.smd": {
       "etag": "\"E0CC4B0C24E1C03923B148CD2F781BAE-1\"",
-      "last-modified": "Thu, 06 Aug 2020 21:45:41 GMT",
+      "last-modified": "Thu, 06 Aug 2020 21:45:42 GMT",
       "name": "InstallAssistantAuto.smd",
       "sha256": "14qs0g5av4j19wnx1jzwkm0x4zgzpqqib939dgpkqaly4aapsslg",
       "url": "http://swcdn.apple.com/content/downloads/23/45/001-36735-A_IRCLJ5YYKF/z8vka6xfykydycui5b7atpc52btxmbffdn/InstallAssistantAuto.smd"
@@ -217,7 +217,7 @@
     },
     "http://swcdn.apple.com/content/downloads/59/18/001-15219-A_EE9FN7UHJA/efuz3h0zlmx4qlinf4bxlguigo9jvhcr55/InstallAssistantAuto.smd": {
       "etag": "\"784A28317C92BF02CD49A013161E85A6-1\"",
-      "last-modified": "Mon, 08 Jun 2020 18:42:44 GMT",
+      "last-modified": "Mon, 08 Jun 2020 18:42:45 GMT",
       "name": "InstallAssistantAuto.smd",
       "sha256": "11d3w1yh1rww4n5x257bpa8br0vpgmnhamr93paj5an7abj8mhmf",
       "url": "http://swcdn.apple.com/content/downloads/59/18/001-15219-A_EE9FN7UHJA/efuz3h0zlmx4qlinf4bxlguigo9jvhcr55/InstallAssistantAuto.smd"
@@ -265,10 +265,10 @@
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkm"
     },
     "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"ADD0E36AA6E43CBA11212D3C959D81BD\"",
-      "last-modified": "Fri, 05 Mar 2021 23:49:24 GMT",
+      "etag": "\"364BB193DAB8E5861EBBA0C343997041\"",
+      "last-modified": "Mon, 08 Mar 2021 18:14:34 GMT",
       "name": "index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "01p3ifmrw7fp65j8dmf4l0ynj9blmf0n8a18wlcd0ckdk542bbzi",
+      "sha256": "0jn5ynl0i0disf7kg243k18hv298fhygzc0wfhsw3pqahfgwd2as",
       "url": "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
