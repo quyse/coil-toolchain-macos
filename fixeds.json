@@ -28,7 +28,7 @@
     },
     "http://swcdn.apple.com/content/downloads/08/44/041-90855-A_452WLVQACP/mzfvoi59bljh3w4w4lvwenfk0r1a2f7212/InstallAssistantAuto.smd": {
       "etag": "\"76CAF7171B5C1F4617C58C4CD08DB33E-1\"",
-      "last-modified": "Wed, 02 Oct 2019 11:14:09 GMT",
+      "last-modified": "Wed, 02 Oct 2019 11:14:10 GMT",
       "name": "InstallAssistantAuto.smd",
       "sha256": "0l4y43xqwdv85a54q5myrb8akrpbdwdv6yriz6vx3i6i2dz71qkn",
       "url": "http://swcdn.apple.com/content/downloads/08/44/041-90855-A_452WLVQACP/mzfvoi59bljh3w4w4lvwenfk0r1a2f7212/InstallAssistantAuto.smd"
@@ -265,10 +265,10 @@
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkm"
     },
     "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"364BB193DAB8E5861EBBA0C343997041\"",
-      "last-modified": "Mon, 08 Mar 2021 18:14:34 GMT",
+      "etag": "\"4963A8F25F4A4AE9E97BC1FE6E6A927A\"",
+      "last-modified": "Thu, 11 Mar 2021 23:44:39 GMT",
       "name": "index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "0jn5ynl0i0disf7kg243k18hv298fhygzc0wfhsw3pqahfgwd2as",
+      "sha256": "1hhwvmp8b1wdsa9xxga7bd20q08x8nayki38xvx66c9dnp1zkdfm",
       "url": "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
