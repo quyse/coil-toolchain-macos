@@ -28,7 +28,7 @@
     },
     "http://swcdn.apple.com/content/downloads/08/44/041-90855-A_452WLVQACP/mzfvoi59bljh3w4w4lvwenfk0r1a2f7212/InstallAssistantAuto.smd": {
       "etag": "\"76CAF7171B5C1F4617C58C4CD08DB33E-1\"",
-      "last-modified": "Wed, 02 Oct 2019 11:14:09 GMT",
+      "last-modified": "Wed, 02 Oct 2019 11:14:10 GMT",
       "name": "InstallAssistantAuto.smd",
       "sha256": "0l4y43xqwdv85a54q5myrb8akrpbdwdv6yriz6vx3i6i2dz71qkn",
       "url": "http://swcdn.apple.com/content/downloads/08/44/041-90855-A_452WLVQACP/mzfvoi59bljh3w4w4lvwenfk0r1a2f7212/InstallAssistantAuto.smd"
@@ -49,14 +49,14 @@
     },
     "http://swcdn.apple.com/content/downloads/20/55/001-51042-A_2EJTJOSUC2/rsvf13iphg5lvcqcysqcarv8cvddq8igek/InstallAssistantAuto.smd": {
       "etag": "\"B2703AB3B4412A97643E0E1F96127CA2-1\"",
-      "last-modified": "Tue, 22 Sep 2020 16:56:29 GMT",
+      "last-modified": "Tue, 22 Sep 2020 16:56:28 GMT",
       "name": "InstallAssistantAuto.smd",
       "sha256": "1ljg1dgygrz905jaz4lr8n56dcwx8g5fmkk1rar9xcr2palv68fp",
       "url": "http://swcdn.apple.com/content/downloads/20/55/001-51042-A_2EJTJOSUC2/rsvf13iphg5lvcqcysqcarv8cvddq8igek/InstallAssistantAuto.smd"
     },
     "http://swcdn.apple.com/content/downloads/23/45/001-36735-A_IRCLJ5YYKF/z8vka6xfykydycui5b7atpc52btxmbffdn/InstallAssistantAuto.smd": {
       "etag": "\"E0CC4B0C24E1C03923B148CD2F781BAE-1\"",
-      "last-modified": "Thu, 06 Aug 2020 21:45:42 GMT",
+      "last-modified": "Thu, 06 Aug 2020 21:45:41 GMT",
       "name": "InstallAssistantAuto.smd",
       "sha256": "14qs0g5av4j19wnx1jzwkm0x4zgzpqqib939dgpkqaly4aapsslg",
       "url": "http://swcdn.apple.com/content/downloads/23/45/001-36735-A_IRCLJ5YYKF/z8vka6xfykydycui5b7atpc52btxmbffdn/InstallAssistantAuto.smd"
@@ -265,10 +265,10 @@
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkm"
     },
     "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"05272894E79B92F35CF5E0E8D938018D\"",
-      "last-modified": "Fri, 12 Mar 2021 22:51:27 GMT",
+      "etag": "\"3E912A497352756AE789B27753BAFB03\"",
+      "last-modified": "Mon, 15 Mar 2021 20:10:15 GMT",
       "name": "index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "1kp9yv13q6pvw5cj35h1m3azimpnffsr84yrr233arsjva7scmiz",
+      "sha256": "1l2zj4gr6zml0zkkdz5vri8q4k5y53n0dnlsgg5m5s35024mwirz",
       "url": "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
