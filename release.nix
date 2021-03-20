@@ -8,6 +8,6 @@ let
 in {
   inherit root;
   touch = {
-    inherit (root.packages) vm;
+    inherit (root.packages) run vm;
   };
 }
