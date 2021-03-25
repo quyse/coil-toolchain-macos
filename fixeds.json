@@ -1,8 +1,8 @@
 {
   "fetchgit": {
     "https://github.com/kholia/OSX-KVM.git": {
-      "rev": "9f0cb4165c387f1651b73817f219c484c204610f",
-      "sha256": "1h6bif78r5z28aycbm2llip7in42fm6w2bxb0fx2ggpk7vb7r2ma",
+      "rev": "5e90b04e1506843fa43f7664fabfe1f01d3234aa",
+      "sha256": "0acyrvs4ijzr69cwg84079iap5vnya9wh136h4xp4drbakgcr5f2",
       "url": "https://github.com/kholia/OSX-KVM.git"
     },
     "https://github.com/rebeccajae/plist2json.git#default": {
@@ -230,45 +230,45 @@
       "url": "http://swcdn.apple.com/content/downloads/61/24/001-57224/0o1xetys5n505gocjsil5qo0p4kg939elb/InstallAssistantAuto.smd"
     },
     "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/001-68446.English.dist": {
-      "etag": "\"230c-5b3c8f0ebefac\"",
+      "etag": "\"66CFED9280C3041C37A7AFAD60DF0CED-1\"",
       "last-modified": "Tue, 10 Nov 2020 23:21:40 GMT",
       "name": "001-68446.English.dist",
       "sha256": "0wa78adyhqw9dv7jnqllx5w8s0kl19fkz5w175hzrrchkk0bqvkc",
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/001-68446.English.dist"
     },
     "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkm": {
-      "etag": "\"f59-5b3c8f1390b8c\"",
+      "etag": "\"718044EA74BD9E09CB023260ACD62D74-1\"",
       "last-modified": "Tue, 10 Nov 2020 23:21:45 GMT",
       "name": "InstallAssistantAuto.pkm",
       "sha256": "09z6zsalddaxxgxpr1gmh7pw30k3bi6mp09j3j37rbdbzcm9f7gc",
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallAssistantAuto.pkm"
     },
     "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkm": {
-      "etag": "\"174-5b3c8f1474866\"",
+      "etag": "\"2A6B5800CCFE130807808EEBD329C345-1\"",
       "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
       "name": "InstallESDDmg.pkm",
       "sha256": "0q9j7jgcwkvl2fil12pcvrdl836cg2wrj43lna3s338lyfn1zgdb",
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/InstallESDDmg.pkm"
     },
     "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkm": {
-      "etag": "\"23d-5b3c8f14fb4cc\"",
+      "etag": "\"0D372E1D3F9BC6A35AB384FDEB95359C-1\"",
       "last-modified": "Tue, 10 Nov 2020 23:21:46 GMT",
       "name": "MajorOSInfo.pkm",
       "sha256": "01d216rn578vkp2050mskdn2g13kv2sgp01aw2ff1jk32wp9kkq8",
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/MajorOSInfo.pkm"
     },
     "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkm": {
-      "etag": "\"174-5b3c8f15ef37b\"",
+      "etag": "\"09DA1810EA7F93FB77BA85D303E94113-1\"",
       "last-modified": "Tue, 10 Nov 2020 23:21:47 GMT",
       "name": "RecoveryHDMetaDmg.pkm",
       "sha256": "1zmvgcbqchizkp32ixaj9xnj2q25brh0riw43pr1w2p9mjqbv41x",
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/RecoveryHDMetaDmg.pkm"
     },
     "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"38E4A4C797CF4A2AAB1FE2D1D2306FB1\"",
-      "last-modified": "Fri, 19 Mar 2021 22:42:59 GMT",
+      "etag": "\"0E424BB5C43CBF5A5C99499008D634FB\"",
+      "last-modified": "Wed, 24 Mar 2021 22:57:42 GMT",
       "name": "index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "1707qb5vsp5jgxn9ll53m2raz2hprkgpv8jmdh58vaf6j5d0rlnx",
+      "sha256": "1s4xcmql7x9da8h3hj3x2869jm4v9p4209jm5hr7a13gh4k9zbsl",
       "url": "https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
