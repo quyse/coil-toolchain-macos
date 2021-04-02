@@ -6,9 +6,8 @@ let
 in rec {
   catalogVersions = "11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard";
 
-  catalog = builtins.fromJSON (builtins.readFile (
-    fetchPlist "https://swscan.apple.com/content/catalogs/others/index-${catalogVersions}.merged-1.sucatalog"
-  ));
+  catalogPlist = fetchPlist "https://swscan.apple.com/content/catalogs/others/index-${catalogVersions}.merged-1.sucatalog";
+  catalog = builtins.fromJSON (builtins.readFile catalogPlist);
 
   allInstallers = pkgs.lib.pipe catalog.Products [
     # filter only installers

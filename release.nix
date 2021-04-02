@@ -8,6 +8,7 @@ let
 in {
   inherit root;
   touch = {
+    inherit (root) catalogPlist;
     inherit (root.packages) run vm;
   };
 }
