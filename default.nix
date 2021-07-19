@@ -167,4 +167,9 @@ in rec {
   };
 
   packages = macosPackages { version = "10.15.7"; };
+
+  touch = {
+    inherit catalogPlist;
+    inherit (packages) run vm;
+  };
 }
