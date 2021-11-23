@@ -1,22 +1,24 @@
-{ pkgs
+{ pkgs ? import <nixpkgs> {}
+, lib ? pkgs.lib
 , toolchain
+, fixedsFile ? ./fixeds.json
+, fixeds ? lib.importJSON fixedsFile
 }:
-let
-  fixeds = builtins.fromJSON (builtins.readFile ./fixeds.json);
-in rec {
+
+rec {
   catalogVersions = "11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard";
 
   catalogPlist = fetchPlist "https://swscan.apple.com/content/catalogs/others/index-${catalogVersions}.merged-1.sucatalog";
-  catalog = builtins.fromJSON (builtins.readFile catalogPlist);
+  catalog = lib.importJSON catalogPlist;
 
-  allInstallers = pkgs.lib.pipe catalog.Products [
+  allInstallers = lib.pipe catalog.Products [
     # filter only installers
-    (pkgs.lib.filterAttrs (key: product:
+    (lib.filterAttrs (key: product:
       ((product.ExtendedMetaInfo or {}).InstallAssistantPackageIdentifiers or {}) ? OSInstall
     ))
     # process
-    (pkgs.lib.mapAttrsToList (key: product: let
-      metadata = builtins.fromJSON (builtins.readFile (fetchPlist product.ServerMetadataURL));
+    (lib.mapAttrsToList (key: product: let
+      metadata = lib.importJSON (fetchPlist product.ServerMetadataURL);
       localization = metadata.localization;
       desc = localization.English or localization.en;
     in {
@@ -28,20 +30,20 @@ in rec {
     }))
   ];
 
-  installersByVersion = pkgs.lib.pipe allInstallers [
+  installersByVersion = lib.pipe allInstallers [
     # group by version
-    (pkgs.lib.groupBy (p: p.version))
+    (lib.groupBy (p: p.version))
     # sort each by date, pick last
-    (pkgs.lib.mapAttrs (v: ps: pkgs.lib.pipe ps [
-      (pkgs.lib.sort (a: b: a.date < b.date))
-      pkgs.lib.last
+    (lib.mapAttrs (v: ps: lib.pipe ps [
+      (lib.sort (a: b: a.date < b.date))
+      lib.last
       (p: catalog.Products."${p.key}")
     ]))
   ];
 
   macosPackages = { version }: let
     installer = installersByVersion."${version}";
-    findSinglePackage = name: with pkgs.lib;
+    findSinglePackage = name: with lib;
       (findSingle (p: last (splitString "/" p.URL) == name) null null installer.Packages).URL;
     baseSystemImage = pkgs.fetchurl {
       inherit (fixeds.fetchurl."${findSinglePackage "BaseSystem.dmg"}") url sha256 name;
@@ -50,23 +52,23 @@ in rec {
     iso = pkgs.runCommand "fullInstaller.iso" {} ''
       mkdir -p iso/installer.pkg
       # collect packages
-      ${pkgs.lib.pipe (installer.Packages ++ [{
+      ${lib.pipe (installer.Packages ++ [{
         URL = installer.Distributions.English;
       }]) [
         (map (pkg:
-          pkgs.lib.optional (pkg ? URL) pkg.URL ++
-          pkgs.lib.optional (pkg ? MetadataURL) pkg.MetadataURL ++
-          pkgs.lib.optional (pkg ? IntegrityDataURL) pkg.IntegrityDataURL
+          lib.optional (pkg ? URL) pkg.URL ++
+          lib.optional (pkg ? MetadataURL) pkg.MetadataURL ++
+          lib.optional (pkg ? IntegrityDataURL) pkg.IntegrityDataURL
         ))
-        pkgs.lib.concatLists
+        lib.concatLists
         (map (url: let
           fixed = fixeds.fetchurl."${url}";
         in ''
           ln -s ${pkgs.fetchurl {
             inherit (fixed) url sha256 name;
-          }} iso/installer.pkg/${pkgs.lib.escapeShellArg fixed.name}
+          }} iso/installer.pkg/${lib.escapeShellArg fixed.name}
         ''))
-        pkgs.lib.concatStrings
+        lib.concatStrings
       ]}
       # make ISO
       ${pkgs.cdrtools}/bin/mkisofs -quiet -iso-level 3 -udf -follow-links -o $out iso
@@ -81,6 +83,7 @@ in rec {
     '';
 
     run = pkgs.writeScript "run.sh" ''
+      set -eu
       mkdir -p floppy
       cp ${initScript} floppy/init.sh
       ${qemu}/bin/qemu-system-x86_64 \
@@ -98,9 +101,9 @@ in rec {
         -usb -device usb-kbd -device usb-mouse \
         -device usb-ehci,id=ehci \
         -device ich9-ahci,id=sata \
-        -drive if=pflash,format=raw,readonly,file=${osxkvm}/OVMF_CODE.fd \
+        -drive if=pflash,format=raw,readonly=on,file=${osxkvm}/OVMF_CODE.fd \
         -drive if=pflash,format=raw,snapshot=on,file=${osxkvm}/OVMF_VARS-1024x768.fd \
-        -drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore-Catalina/OpenCore-nopicker.qcow2 \
+        -drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore/OpenCore.qcow2 \
         -device ide-hd,bus=sata.0,drive=OpenCoreBoot \
         -drive id=MacHDD,if=none,file=hdd.img,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
         -device ide-hd,bus=sata.1,drive=MacHDD \
@@ -145,8 +148,8 @@ in rec {
   };
 
   fetchPlist = url: let
-    fixed = fixeds.fetchurl."${url}"; in
-  pkgs.runCommand "${fixed.name}.json" {} ''
+    fixed = fixeds.fetchurl."${url}";
+  in pkgs.runCommand "${fixed.name}.json" {} ''
     ${plist2json}/bin/plist2json < ${pkgs.fetchurl {
       inherit (fixed) url sha256 name;
     }} > $out
@@ -157,9 +160,7 @@ in rec {
     fetchSubmodules = false;
   };
 
-  plist2json = pkgs.callPackage ./plist2json.nix {
-    inherit fixeds;
-  };
+  plist2json = pkgs.callPackage ./plist2json {};
 
   qemu = pkgs.qemu_kvm;
   libguestfs = pkgs.libguestfs-with-appliance.override {
@@ -170,6 +171,8 @@ in rec {
 
   touch = {
     inherit catalogPlist;
-    inherit (packages) run vm;
+    inherit (packages) run;
+
+    autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
   };
 }
