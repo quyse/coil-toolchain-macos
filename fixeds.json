@@ -1,8 +1,8 @@
 {
   "fetchgit": {
     "https://github.com/kholia/OSX-KVM.git": {
-      "rev": "88154b5bac079473660afc2a89704874cc7edf03",
-      "sha256": "0d251sji4gzsjdjcif2chiwv1iixhcc2x55pgzm343ca2i8wiqfh",
+      "rev": "3943f798eb7424fc60f2fb73c92eab07f2222271",
+      "sha256": "0p0law1wdsrsr2zn93y8qw2dms2paw6y308shj7ybv7kqxshbd2x",
       "url": "https://github.com/kholia/OSX-KVM.git"
     }
   },
