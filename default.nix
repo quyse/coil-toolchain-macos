@@ -1,6 +1,7 @@
 { pkgs ? import <nixpkgs> {}
 , lib ? pkgs.lib
 , toolchain
+, xml ? toolchain.utils.xml
 , fixedsFile ? ./fixeds.json
 , fixeds ? lib.importJSON fixedsFile
 }:
@@ -14,19 +15,34 @@ rec {
   allInstallers = lib.pipe catalog.Products [
     # filter only installers
     (lib.filterAttrs (key: product:
-      ((product.ExtendedMetaInfo or {}).InstallAssistantPackageIdentifiers or {}) ? OSInstall
+      (product.ExtendedMetaInfo or {}) ? InstallAssistantPackageIdentifiers
     ))
     # process
     (lib.mapAttrsToList (key: product: let
-      metadata = lib.importJSON (fetchPlist product.ServerMetadataURL);
-      localization = metadata.localization;
-      desc = localization.English or localization.en;
+      distributionXml = pkgs.fetchurl {
+        inherit (fixeds.fetchurl."${product.Distributions.English}") url sha256 name;
+      };
+      distributionJson = pkgs.runCommand "${key}.json" {} ''
+        ${pkgs.yq}/bin/xq < ${distributionXml} > $out
+      '';
+      info = lib.pipe distributionJson [
+        lib.importJSON
+        (xml.getTag "installer-gui-script")
+        (root: let
+          auxinfo = xml.getTag "auxinfo" root;
+          dict = xml.getTag "dict" auxinfo;
+          keys = xml.getTags "key" dict;
+          values = xml.getTags "string" dict;
+          list = lib.zipListsWith lib.nameValuePair keys values;
+        in lib.listToAttrs list // {
+          title = xml.getTag "title" root;
+        })
+      ];
     in {
-      inherit key;
-      version = metadata.CFBundleShortVersionString;
-      inherit (desc) title;
+      inherit key distributionJson;
+      version = info.VERSION;
+      inherit (info) title;
       date = product.PostDate;
-      metadata = product.ServerMetadataURL;
     }))
   ];
 
@@ -41,14 +57,15 @@ rec {
     ]))
   ];
 
-  macosPackages = { version }: let
-    installer = installersByVersion."${version}";
+  macosPackages = { version, baseSystemVersion }: let
+    baseSystem = installersByVersion."${baseSystemVersion}";
     findSinglePackage = name: with lib;
-      (findSingle (p: last (splitString "/" p.URL) == name) null null installer.Packages).URL;
+      (findSingle (p: last (splitString "/" p.URL) == name) null null baseSystem.Packages).URL;
     baseSystemImage = pkgs.fetchurl {
       inherit (fixeds.fetchurl."${findSinglePackage "BaseSystem.dmg"}") url sha256 name;
     };
 
+    installer = installersByVersion."${version}";
     iso = pkgs.runCommand "fullInstaller.iso" {} ''
       mkdir -p iso/installer.pkg
       # collect packages
@@ -74,7 +91,7 @@ rec {
       ${pkgs.cdrtools}/bin/mkisofs -quiet -iso-level 3 -udf -follow-links -o $out iso
     '';
 
-    vm = pkgs.runCommand "macos-vm" {} ''
+    vmTest = pkgs.runCommand "macos-vmTest-${version}" {} ''
       ${qemu}/bin/qemu-img create -f qcow2 hdd.img 256G
       ${qemu}/bin/qemu-img create -f qcow2 installhdd.img 16G
       ${run}
@@ -84,8 +101,9 @@ rec {
 
     run = pkgs.writeScript "run.sh" ''
       set -eu
-      mkdir -p floppy
+      mkdir -p floppy/scripts
       cp ${initScript} floppy/init.sh
+      cp ${postinstallPackage} floppy/bootstrap.pkg
       ${qemu}/bin/qemu-system-x86_64 \
         -name macos \
         -enable-kvm \
@@ -134,17 +152,90 @@ rec {
       B=$((1 - $A))
       diskutil eraseDisk APFSX MacHDD GPT /dev/disk$A
       diskutil eraseDisk APFSX InstallHDD GPT /dev/disk$B
+
       # work around bug in installer postinstall scripts
       ln -s /Volumes/InstallHDD/Applications /Volumes/InstallHDDApplications
       # unpack installer
       installer -pkg /Volumes/CDROM/installer.pkg/*.dist -target /Volumes/InstallHDD
       # run installer
       /Volumes/InstallHDD/Applications/Install\ macOS\ *.app/Contents/Resources/startosinstall \
-        --agreetolicense --nointeraction --volume /Volumes/MacHDD
+        --agreetolicense --nointeraction --volume /Volumes/MacHDD \
+        --installpackage "/Volumes/QEMU VVFAT/bootstrap.pkg"
+    '';
+
+    postinstallPackage = let
+      postinstallScript = pkgs.writeScript "postinstall.sh" ''
+        #!/bin/bash
+
+        # disable welcome screen
+        touch "$3/var/db/.AppleSetupDone"
+        touch "$3/private/var/db/.AppleSetupDone"
+
+        # create user
+        sysadminctl -addUser vagrant -password vagrant -admin
+        # add to sudoers
+        cp "$3/etc/sudoers" "$3/etc/sudoers.orig"
+        echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> "$3/etc/sudoers"
+
+        # enable SSH
+        /bin/launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+
+        # poweroff
+        shutdown -h now
+      '';
+    in pkgs.runCommand "bootstrap.pkg" {} ''
+      mkdir -p flat/bootstrap.pkg
+      # installable files
+      mkdir root
+      pushd root
+      # no files so far
+      find . | ${pkgs.cpio}/bin/cpio -o --format odc --owner 0:80 | gzip -c > ../flat/bootstrap.pkg/Payload
+      popd
+      # bom file
+      ${pkgs.bomutils}/bin/mkbom -u 0 -g 80 root flat/bootstrap.pkg/Bom
+      # scripts
+      mkdir scripts
+      cp ${postinstallScript} scripts/postinstall
+      pushd scripts
+      find . | ${pkgs.cpio}/bin/cpio -o --format odc --owner 0:80 | gzip -c > ../flat/bootstrap.pkg/Scripts
+      popd
+      # PackageInfo
+      cp ${pkgs.writeText "PackageInfo" ''
+        <?xml version="1.0" encoding="utf-8"?>
+        <pkg-info overwrite-permissions="true" relocatable="false" identifier="coil.macos.bootstrap" postinstall-action="none" version="1" format-version="2" auth="root">
+          <payload numberOfFiles="1" installKBytes="0"/>
+          <scripts>
+            <postinstall file="./postinstall"/>
+          </scripts>
+        </pkg-info>
+      ''} flat/bootstrap.pkg/PackageInfo
+      # Distribution
+      cp ${pkgs.writeText "Distribution" ''
+        <?xml version="1.0" encoding="utf-8"?>
+        <installer-gui-script minSpecVersion="1">
+          <pkg-ref id="coil.macos.bootstrap">
+            <bundle-version/>
+          </pkg-ref>
+          <options customize="never" require-scripts="false" hostArchitectures="x86_64,arm64"/>
+          <choices-outline>
+            <line choice="default">
+              <line choice="coil.macos.bootstrap"/>
+            </line>
+          </choices-outline>
+          <choice id="default"/>
+          <choice id="coil.macos.bootstrap" visible="false">
+            <pkg-ref id="coil.macos.bootstrap"/>
+          </choice>
+          <pkg-ref id="coil.macos.bootstrap" version="1" onConclusion="none" installKBytes="0">#bootstrap.pkg</pkg-ref>
+        </installer-gui-script>
+      ''} flat/Distribution
+      # package
+      cd flat
+      ${pkgs.xar}/bin/xar --compression none -cf $out *
     '';
 
   in {
-    inherit run vm;
+    inherit run vmTest;
   };
 
   fetchPlist = url: let
@@ -167,11 +258,28 @@ rec {
     inherit qemu; # no need to use full qemu
   };
 
-  packages = macosPackages { version = "10.15.7"; };
+  # macOS Monterey
+  majorVersion = "12";
+  latestVersion = lib.pipe allInstallers [
+    (lib.filter (info: lib.hasPrefix "${majorVersion}." info.version && builtins.compareVersions info.version majorVersion >= 0))
+    (map (info: info.version))
+    (lib.sort (a: b: builtins.compareVersions a b > 0))
+    lib.head
+  ];
+  packages = macosPackages {
+    version = latestVersion;
+    baseSystemVersion = "10.15.7"; # latest Catalina
+  };
+
+  allInstallersDistributions = lib.pipe allInstallers [
+    (map (o: "${o.distributionJson}\n"))
+    lib.concatStrings
+    (pkgs.writeText "allInstallersDistributions")
+  ];
 
   touch = {
-    inherit catalogPlist;
-    inherit (packages) run;
+    inherit catalogPlist allInstallersDistributions;
+    inherit (packages) run vmTest;
 
     autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
   };

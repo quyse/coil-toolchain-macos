@@ -154,10 +154,11 @@ const typeSym = (socket, s) => socket.sendKeys(s.split('-').map((c) => ({
     throw `${message}: timed out!`;
   };
 
-  await waitForText('Waiting for boot', 'macOS Utilities', 180);
+  await waitForText('Waiting for boot', 'macOS Utilities', 300);
 
   console.log('Starting terminal.');
   await typeSym(socket, 'ctrl-f2');
+  await sleep(1000);
   await typeText(socket, 'u\nt\n');
 
   await waitForText('Waiting for terminal', 'bash', 10);
