@@ -72,11 +72,7 @@ rec {
       ${lib.pipe (installer.Packages ++ [{
         URL = installer.Distributions.English;
       }]) [
-        (map (pkg:
-          lib.optional (pkg ? URL) pkg.URL ++
-          lib.optional (pkg ? MetadataURL) pkg.MetadataURL ++
-          lib.optional (pkg ? IntegrityDataURL) pkg.IntegrityDataURL
-        ))
+        (map (pkg: lib.optional (pkg ? URL) pkg.URL))
         lib.concatLists
         (map (url: let
           fixed = fixeds.fetchurl."${url}";
