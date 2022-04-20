@@ -12,7 +12,9 @@ rec {
   catalogPlist = fetchPlist "https://swscan.apple.com/content/catalogs/others/index-${catalogVersions}.merged-1.sucatalog";
   catalog = lib.importJSON catalogPlist;
 
-  allInstallers = lib.pipe catalog.Products [
+  products = catalog.Products;
+
+  allOSInstallers = lib.pipe products [
     # filter only installers
     (lib.filterAttrs (key: product:
       (product.ExtendedMetaInfo or {}) ? InstallAssistantPackageIdentifiers
@@ -46,56 +48,50 @@ rec {
     }))
   ];
 
-  installersByVersion = lib.pipe allInstallers [
+  osInstallersByVersion = lib.pipe allOSInstallers [
     # group by version
     (lib.groupBy (p: p.version))
     # sort each by date, pick last
     (lib.mapAttrs (v: ps: lib.pipe ps [
       (lib.sort (a: b: a.date < b.date))
       lib.last
-      (p: catalog.Products."${p.key}")
+      (p: products."${p.key}")
     ]))
   ];
 
+  # symlink installer packages into dir
+  installerScript = installer: lib.pipe (installer.Packages ++ [{
+    URL = installer.Distributions.English;
+  }]) [
+    (map (pkg: lib.optional (pkg ? URL) pkg.URL))
+    lib.concatLists
+    (map (url: let
+      fixed = fixeds.fetchurl."${url}" or null;
+    in ''
+      ln -s ${if fixed == null then builtins.trace url (builtins.fetchurl url) else pkgs.fetchurl {
+        inherit (fixed) url sha256 name;
+      }} ${lib.escapeShellArg (if fixed == null then "zzz" else fixed.name)}
+    ''))
+    lib.concatStrings
+  ];
+
   macosPackages = { version, baseSystemVersion }: let
-    baseSystem = installersByVersion."${baseSystemVersion}";
+    baseSystem = osInstallersByVersion."${baseSystemVersion}";
     findSinglePackage = name: with lib;
       (findSingle (p: last (splitString "/" p.URL) == name) null null baseSystem.Packages).URL;
     baseSystemImage = pkgs.fetchurl {
       inherit (fixeds.fetchurl."${findSinglePackage "BaseSystem.dmg"}") url sha256 name;
     };
 
-    installer = installersByVersion."${version}";
     iso = pkgs.runCommand "fullInstaller.iso" {} ''
       mkdir -p iso/installer.pkg
-      # collect packages
-      ${lib.pipe (installer.Packages ++ [{
-        URL = installer.Distributions.English;
-      }]) [
-        (map (pkg: lib.optional (pkg ? URL) pkg.URL))
-        lib.concatLists
-        (map (url: let
-          fixed = fixeds.fetchurl."${url}";
-        in ''
-          ln -s ${pkgs.fetchurl {
-            inherit (fixed) url sha256 name;
-          }} iso/installer.pkg/${lib.escapeShellArg fixed.name}
-        ''))
-        lib.concatStrings
-      ]}
-      # make ISO
+      pushd iso/installer.pkg
+      ${installerScript osInstallersByVersion."${version}"}
+      popd
       ${pkgs.cdrtools}/bin/mkisofs -quiet -iso-level 3 -udf -follow-links -o $out iso
     '';
 
-    vmTest = pkgs.runCommand "macos-vmTest-${version}" {} ''
-      ${qemu}/bin/qemu-img create -f qcow2 hdd.img 256G
-      ${qemu}/bin/qemu-img create -f qcow2 installhdd.img 16G
-      ${run}
-      timeout 1h tail --pid=$(cat vm.pid) -f /dev/null
-      echo test_done > $out
-    '';
-
-    run = pkgs.writeScript "run.sh" ''
+    runInstall = hdd: pkgs.writeScript "runInstall.sh" ''
       set -eu
       mkdir -p floppy/scripts
       cp ${initScript} floppy/init.sh
@@ -119,9 +115,9 @@ rec {
         -drive if=pflash,format=raw,snapshot=on,file=${osxkvm}/OVMF_VARS-1024x768.fd \
         -drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore/OpenCore.qcow2 \
         -device ide-hd,bus=sata.0,drive=OpenCoreBoot \
-        -drive id=MacHDD,if=none,file=hdd.img,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
+        -drive id=MacHDD,if=none,file=${hdd},format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
         -device ide-hd,bus=sata.1,drive=MacHDD \
-        -drive id=InstallHDD,if=none,file=installhdd.img,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
+        -drive id=InstallHDD,if=none,file=installhdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
         -device ide-hd,bus=sata.2,drive=InstallHDD \
         -drive id=InstallMediaBase,if=none,format=dmg,snapshot=on,file=${baseSystemImage} \
         -device ide-hd,bus=sata.3,drive=InstallMediaBase \
@@ -168,10 +164,10 @@ rec {
         touch "$3/private/var/db/.AppleSetupDone"
 
         # create user
-        sysadminctl -addUser vagrant -password vagrant -admin
+        sysadminctl -addUser ${vmUser} -password ${vmPassword} -admin
         # add to sudoers
         cp "$3/etc/sudoers" "$3/etc/sudoers.orig"
-        echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> "$3/etc/sudoers"
+        echo "${vmUser} ALL=(ALL) NOPASSWD: ALL" >> "$3/etc/sudoers"
 
         # enable SSH
         /bin/launchctl load -w /System/Library/LaunchDaemons/ssh.plist
@@ -230,8 +226,16 @@ rec {
       ${pkgs.xar}/bin/xar --compression none -cf $out *
     '';
 
+    initialImage = pkgs.runCommand "macos_${version}-image.qcow2" {} ''
+      ${qemu}/bin/qemu-img create -f qcow2 $out 256G
+      ${qemu}/bin/qemu-img create -f qcow2 installhdd.qcow2 16G
+      ${runInstall "$out"}
+      echo 'Waiting for install to finish...'
+      timeout 1h tail --pid=$(<vm.pid) -f /dev/null
+    '';
+
   in {
-    inherit run vmTest;
+    inherit initialImage;
   };
 
   fetchPlist = url: let
@@ -256,7 +260,7 @@ rec {
 
   # macOS Monterey
   majorVersion = "12";
-  latestVersion = lib.pipe allInstallers [
+  latestVersion = lib.pipe allOSInstallers [
     (lib.filter (info: lib.hasPrefix "${majorVersion}." info.version && builtins.compareVersions info.version majorVersion >= 0))
     (map (info: info.version))
     (lib.sort (a: b: builtins.compareVersions a b > 0))
@@ -267,7 +271,10 @@ rec {
     baseSystemVersion = "10.15.7"; # latest Catalina
   };
 
-  allInstallersDistributions = lib.pipe allInstallers [
+  vmUser = "vagrant";
+  vmPassword = "vagrant";
+
+  allInstallersDistributions = lib.pipe allOSInstallers [
     (map (o: "${o.distributionJson}\n"))
     lib.concatStrings
     (pkgs.writeText "allInstallersDistributions")
@@ -275,7 +282,7 @@ rec {
 
   touch = {
     inherit catalogPlist allInstallersDistributions;
-    inherit (packages) run vmTest;
+    inherit (packages) initialImage;
 
     autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
   };

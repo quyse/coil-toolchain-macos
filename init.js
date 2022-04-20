@@ -156,6 +156,7 @@ const typeSym = (socket, s) => socket.sendKeys(s.split('-').map((c) => ({
 
   await waitForText('Waiting for boot', 'macOS Utilities', 300);
 
+  await sleep(1000);
   console.log('Starting terminal.');
   await typeSym(socket, 'ctrl-f2');
   await sleep(1000);
