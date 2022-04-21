@@ -59,6 +59,25 @@ rec {
     ]))
   ];
 
+  allCLToolsInstallers = lib.pipe products [
+    (lib.filterAttrs (key: product: lib.strings.match ".+CLTools.+" (product.ServerMetadataURL or "") != null))
+    (lib.mapAttrsToList (key: product: let
+      metadataPlist = fetchPlist product.ServerMetadataURL;
+      metadata = lib.importJSON metadataPlist;
+      title = metadata.localization.English.title;
+      version = metadata."CFBundleShortVersionString";
+    in {
+      inherit key title version metadataPlist;
+    }))
+  ];
+
+  clToolsInstallersByVersion = lib.pipe allCLToolsInstallers [
+    # group by version
+    (lib.groupBy (p: p.version))
+    # check single package
+    (lib.mapAttrs (version: installers: assert lib.length installers == 1; products."${(lib.head installers).key}"))
+  ];
+
   # symlink installer packages into dir
   installerScript = installer: lib.pipe (installer.Packages ++ [{
     URL = installer.Distributions.English;
@@ -159,9 +178,15 @@ rec {
       postinstallScript = pkgs.writeScript "postinstall.sh" ''
         #!/bin/bash
 
+        PlistBuddy=/usr/libexec/PlistBuddy
+        target_ds_node="$3/private/var/db/dslocal/nodes/Default"
+
         # disable welcome screen
-        touch "$3/var/db/.AppleSetupDone"
         touch "$3/private/var/db/.AppleSetupDone"
+
+        # disable power saving stuff
+        pmset -a displaysleep 0 disksleep 0 sleep 0 womp 0
+        defaults -currentHost write com.apple.screensaver idleTime 0
 
         # create user
         sysadminctl -addUser ${vmUser} -password ${vmPassword} -admin
@@ -169,8 +194,20 @@ rec {
         cp "$3/etc/sudoers" "$3/etc/sudoers.orig"
         echo "${vmUser} ALL=(ALL) NOPASSWD: ALL" >> "$3/etc/sudoers"
 
+        # add user to admin group memberships
+        USER_GUID=$($PlistBuddy -c 'Print :generateduid:0' "$target_ds_node/users/${vmUser}.plist")
+        USER_UID=$($PlistBuddy -c 'Print :uid:0' "$target_ds_node/users/${vmUser}.plist")
+        $PlistBuddy -c 'Add :groupmembers: string '"$USER_GUID" "$target_ds_node/groups/admin.plist"
+        # add user to SSH SACL group membership
+        ssh_group="$target_ds_node/groups/com.apple.access_ssh.plist"
+        $PlistBuddy -c 'Add :groupmembers array' "$ssh_group"
+        $PlistBuddy -c 'Add :groupmembers:0 string '"$USER_GUID" "$ssh_group"
+        $PlistBuddy -c 'Add :users array' "$ssh_group"
+        $PlistBuddy -c 'Add :users:0 string ${vmUser}' "$ssh_group"
+
         # enable SSH
-        /bin/launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+        cp /System/Library/LaunchDaemons/ssh.plist /Library/LaunchDaemons/ssh.plist
+        /usr/libexec/plistbuddy -c "set Disabled FALSE" /Library/LaunchDaemons/ssh.plist
 
         # poweroff
         shutdown -h now
@@ -226,16 +263,130 @@ rec {
       ${pkgs.xar}/bin/xar --compression none -cf $out *
     '';
 
-    initialImage = pkgs.runCommand "macos_${version}-image.qcow2" {} ''
-      ${qemu}/bin/qemu-img create -f qcow2 $out 256G
-      ${qemu}/bin/qemu-img create -f qcow2 installhdd.qcow2 16G
+    initialImage = pkgs.runCommand "macos_${version}.qcow2" {} ''
+      ${qemu}/bin/qemu-img create -qf qcow2 $out 256G
+      ${qemu}/bin/qemu-img create -qf qcow2 installhdd.qcow2 16G
       ${runInstall "$out"}
       echo 'Waiting for install to finish...'
       timeout 1h tail --pid=$(<vm.pid) -f /dev/null
     '';
 
+    step =
+    { baseImage ? initialImage
+    , name ? "macos_${version}-step${lib.optionalString fastHddOut ".qcow2"}"
+    , extraMount ? null
+    , extraMountIn ? true
+    , extraMountOut ? true
+    , beforeScript ? ""
+    , command
+    , afterScript ? ""
+    , fastHddOut ? !(extraMount != null && extraMountOut) && afterScript == ""
+    }: let
+      sshpass = "${pkgs.sshpass}/bin/sshpass -p ${vmPassword}";
+      ssh_opts = "-o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no";
+      ssh_run = command: "${sshpass} ${pkgs.openssh}/bin/ssh ${ssh_opts} -p 20022 ${vmUser}@127.0.0.1 ${lib.escapeShellArg command}";
+      scp_from = src: dst: "${sshpass} ${pkgs.openssh}/bin/scp -r ${ssh_opts} -P 20022 ${vmUser}@127.0.0.1:${src} ${dst}";
+      scp_to = src: dst: "${sshpass} ${pkgs.openssh}/bin/scp -r ${ssh_opts} -P 20022 ${src} ${vmUser}@127.0.0.1:${dst}";
+      extraMountArg = lib.escapeShellArg extraMount;
+      hdd = if fastHddOut then "$out" else "hdd.qcow2";
+    in pkgs.runCommand name {}
+    ''
+      set -eu
+      ${qemu}/bin/qemu-img create -qf qcow2 -b ${baseImage} -F qcow2 ${hdd}
+      ${qemu}/bin/qemu-img create -qf qcow2 mounthdd.qcow2 64G
+      ${qemu}/bin/qemu-system-x86_64 \
+        -name macos \
+        -enable-kvm \
+        -pidfile vm.pid \
+        -smp 4,cores=2,threads=2,sockets=1 \
+        -m 8G \
+        -cpu Penryn,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,+pcid,+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check \
+        -machine q35 \
+        -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" \
+        -smbios type=2 \
+        -device VGA,vgamem_mb=128 \
+        -usb -device usb-kbd -device usb-mouse \
+        -device usb-ehci,id=ehci \
+        -device ich9-ahci,id=sata \
+        -drive if=pflash,format=raw,readonly=on,file=${osxkvm}/OVMF_CODE.fd \
+        -drive if=pflash,format=raw,snapshot=on,file=${osxkvm}/OVMF_VARS-1024x768.fd \
+        -drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore/OpenCore.qcow2 \
+        -device ide-hd,bus=sata.0,drive=OpenCoreBoot \
+        -drive id=MacHDD,if=none,file=${hdd},format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
+        -device ide-hd,bus=sata.1,drive=MacHDD \
+        -drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
+        -device ide-hd,bus=sata.2,drive=MountHDD \
+        -netdev user,id=net0,hostfwd=tcp:127.0.0.1:20022-:22 \
+        -device vmxnet3,netdev=net0,id=net0 \
+        -vnc 127.0.0.1:4 -daemonize
+      OK=""
+      for i in {1..60}
+      do
+        if ${ssh_run "true"}
+        then
+          OK=ok
+          echo 'Connected.'
+          break
+        fi
+        echo "Connection attempt $i failed."
+        sleep 1
+      done
+      if [ "$OK" != 'ok' ]
+      then
+        echo 'Failed to connect to macOS VM'
+        exit 1
+      fi
+      ${beforeScript}
+      ${lib.optionalString (extraMount != null && (extraMountIn || extraMountOut)) ''
+        ${ssh_run ''
+          # format mounthdd
+          # figure out which drive is bigger first
+          # macos assignes our drives randomly to disk0 and disk1
+          getDiskSize () {
+            diskutil info -plist $1 > /tmp/sizeinfo
+            /usr/libexec/PlistBuddy -c 'Print :Size' /tmp/sizeinfo
+          }
+          [ $(getDiskSize /dev/disk0) -gt $(getDiskSize /dev/disk1) ]
+          A=$?
+          B=$((1 - $A))
+          diskutil eraseDisk APFSX MountHDD GPT /dev/disk$B
+        ''}
+      ''}
+      ${lib.optionalString (extraMount != null && extraMountIn) ''
+        echo 'Copying extra mount data in...'
+        ${scp_to extraMountArg "/Volumes/MountHDD/data"}
+        rm -r ${extraMountArg}
+      ''}
+      ${lib.optionalString (extraMount != null && extraMountOut) ''
+        ${ssh_run ''
+          mkdir -p /Volumes/MountHDD/data
+        ''}
+      ''}
+      ${ssh_run command}
+      ${lib.optionalString (extraMount != null && extraMountOut) ''
+        echo 'Copying extra mount data out...'
+        ${scp_from "/Volumes/MountHDD/data" extraMountArg}
+      ''}
+      ${afterScript}
+    '';
+
+    clToolsImage = { clToolsVersion ? latestCLToolsVersion }: step {
+      name = "macos_${version}_cltools_${clToolsVersion}.qcow2";
+      extraMount = "mount";
+      extraMountOut = false;
+      beforeScript = ''
+        mkdir mount
+        pushd mount
+        ${installerScript clToolsInstallersByVersion."${clToolsVersion}"}
+        popd
+      '';
+      command = ''
+        sudo installer -pkg /Volumes/MountHDD/data/*.dist -target /Applications
+      '';
+    };
+
   in {
-    inherit initialImage;
+    inherit initialImage step clToolsImage;
   };
 
   fetchPlist = url: let
@@ -259,30 +410,41 @@ rec {
   };
 
   # macOS Monterey
-  majorVersion = "12";
-  latestVersion = lib.pipe allOSInstallers [
-    (lib.filter (info: lib.hasPrefix "${majorVersion}." info.version && builtins.compareVersions info.version majorVersion >= 0))
+  majorOSVersion = "12";
+  latestOSVersion = lib.pipe allOSInstallers [
+    (lib.filter (info: lib.hasPrefix "${majorOSVersion}." info.version && builtins.compareVersions info.version majorOSVersion >= 0))
     (map (info: info.version))
     (lib.sort (a: b: builtins.compareVersions a b > 0))
     lib.head
   ];
   packages = macosPackages {
-    version = latestVersion;
+    version = latestOSVersion;
     baseSystemVersion = "10.15.7"; # latest Catalina
   };
+
+  latestCLToolsVersion = lib.pipe allCLToolsInstallers [
+    (map (info: info.version))
+    (lib.sort (a: b: builtins.compareVersions a b > 0))
+    lib.head
+  ];
 
   vmUser = "vagrant";
   vmPassword = "vagrant";
 
-  allInstallersDistributions = lib.pipe allOSInstallers [
-    (map (o: "${o.distributionJson}\n"))
+  allInstallersMetadatas = let
+    installers
+      =  map (o: "${o.distributionJson}\n") allOSInstallers
+      ++ map (o: "${o.metadataPlist}\n") allCLToolsInstallers
+      ;
+  in lib.pipe installers [
     lib.concatStrings
-    (pkgs.writeText "allInstallersDistributions")
+    (pkgs.writeText "allInstallersMetadatas")
   ];
 
   touch = {
-    inherit catalogPlist allInstallersDistributions;
+    inherit catalogPlist allInstallersMetadatas;
     inherit (packages) initialImage;
+    clToolsImage = packages.clToolsImage {};
 
     autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
   };

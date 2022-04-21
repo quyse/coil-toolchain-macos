@@ -58,7 +58,7 @@ const connectQemuSocket = (socketPath) => new Promise((resolve, reject) => {
   socket.on('error', reject);
 });
 
-const sleep = (timeout) => new Promise((resolve, reject) => setTimeout(resolve, timeout));
+const sleep = (timeout) => new Promise((resolve, reject) => setTimeout(resolve, timeout * 1000));
 
 // https://en.wikibooks.org/wiki/QEMU/Monitor#sendkey_keys
 // https://manpages.ubuntu.com/manpages/bionic/man7/qemu-qmp-ref.7.html
@@ -117,6 +117,17 @@ const typeSym = (socket, s) => socket.sendKeys(s.split('-').map((c) => ({
   data: c
 })));
 
+const aFewAttempts = async (message, attempt, recover) => {
+  for(let i = 0; i < 3; ++i) {
+    try {
+      return await attempt();
+    } catch(e) {
+      await recover(e);
+    }
+  }
+  throw `a few attempts failed: ${message}`;
+};
+
 (async () => {
   const socket = await connectQemuSocket(process.env.SOCKET_PATH);
 
@@ -144,7 +155,7 @@ const typeSym = (socket, s) => socket.sendKeys(s.split('-').map((c) => ({
   const waitForText = async (message, text, seconds) => {
     console.log(`${message}...`);
     for(let i = 0; i < seconds; ++i) {
-      await sleep(1000);
+      await sleep(1);
 
       if(await detectText(text)) {
         console.log(`${message}: finished.`);
@@ -156,13 +167,20 @@ const typeSym = (socket, s) => socket.sendKeys(s.split('-').map((c) => ({
 
   await waitForText('Waiting for boot', 'macOS Utilities', 300);
 
-  await sleep(1000);
-  console.log('Starting terminal.');
-  await typeSym(socket, 'ctrl-f2');
-  await sleep(1000);
-  await typeText(socket, 'u\nt\n');
+  await sleep(1);
 
-  await waitForText('Waiting for terminal', 'bash', 10);
+  // make a few attempts, sometimes ctrl-f2 does not work
+  await aFewAttempts('starting terminal', async () => {
+    console.log('Starting terminal.');
+    await typeSym(socket, 'ctrl-f2');
+    await sleep(1);
+    await typeText(socket, 'u\nt\n');
+    await waitForText('Waiting for terminal', 'bash', 10);
+  }, async (e) => {
+    console.log(e);
+    await typeSym(socket, 'esc');
+    await sleep(1);
+  });
 
   console.log('Starting init script.');
   await typeText(socket, '/Volumes/QEMU\\ VVFAT/init.sh\n');
