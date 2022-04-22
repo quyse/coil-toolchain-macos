@@ -367,6 +367,11 @@ rec {
         echo 'Copying extra mount data out...'
         ${scp_from "/Volumes/MountHDD/data" extraMountArg}
       ''}
+      echo 'Shutting down VM...'
+      ${ssh_run ''
+        sudo shutdown -h now
+      ''} || true
+      timeout 60s tail --pid=$(<vm.pid) -f /dev/null
       ${afterScript}
     '';
 
