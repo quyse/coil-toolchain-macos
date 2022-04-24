@@ -317,7 +317,7 @@ rec {
         -drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
         -device ide-hd,bus=sata.2,drive=MountHDD \
         -netdev user,id=net0,hostfwd=tcp:127.0.0.1:20022-:22 \
-        -device vmxnet3,netdev=net0,id=net0 \
+        -device virtio-net,netdev=net0,id=net0 \
         -vnc 127.0.0.1:4 -daemonize
       OK=""
       for i in {1..60}
@@ -339,17 +339,7 @@ rec {
       ${beforeScript}
       ${lib.optionalString (extraMount != null && (extraMountIn || extraMountOut)) ''
         ${ssh_run ''
-          # format mounthdd
-          # figure out which drive is bigger first
-          # macos assignes our drives randomly to disk0 and disk1
-          getDiskSize () {
-            diskutil info -plist $1 > /tmp/sizeinfo
-            /usr/libexec/PlistBuddy -c 'Print :Size' /tmp/sizeinfo
-          }
-          [ $(getDiskSize /dev/disk0) -gt $(getDiskSize /dev/disk1) ]
-          A=$?
-          B=$((1 - $A))
-          diskutil eraseDisk APFSX MountHDD GPT /dev/disk$B
+          diskutil eraseDisk APFSX MountHDD GPT /dev/disk0
         ''}
       ''}
       ${lib.optionalString (extraMount != null && extraMountIn) ''
