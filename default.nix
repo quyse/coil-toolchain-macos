@@ -23,6 +23,7 @@ rec {
     (lib.mapAttrsToList (key: product: let
       distributionXml = pkgs.fetchurl {
         inherit (fixeds.fetchurl."${product.Distributions.English}") url sha256 name;
+        meta = metaUnfree;
       };
       distributionJson = pkgs.runCommand "${key}.json" {} ''
         ${pkgs.yq}/bin/xq < ${distributionXml} > $out
@@ -89,6 +90,7 @@ rec {
     in ''
       ln -s ${if fixed == null then builtins.trace url (builtins.fetchurl url) else pkgs.fetchurl {
         inherit (fixed) url sha256 name;
+        meta = metaUnfree;
       }} ${lib.escapeShellArg (if fixed == null then "zzz" else fixed.name)}
     ''))
     lib.concatStrings
@@ -100,6 +102,7 @@ rec {
       (findSingle (p: last (splitString "/" p.URL) == name) null null baseSystem.Packages).URL;
     baseSystemImage = pkgs.fetchurl {
       inherit (fixeds.fetchurl."${findSinglePackage "BaseSystem.dmg"}") url sha256 name;
+      meta = metaUnfree;
     };
 
     iso = pkgs.runCommand "fullInstaller.iso" {} ''
@@ -289,6 +292,7 @@ rec {
       scp_to = src: dst: "${sshpass} ${pkgs.openssh}/bin/scp -r ${ssh_opts} -P 20022 ${src} ${vmUser}@127.0.0.1:${dst}";
       extraMountArg = lib.escapeShellArg extraMount;
       hdd = if fastHddOut then "$out" else "hdd.qcow2";
+      mountPath = "/Volumes/MountHDD/data";
     in pkgs.runCommand name {}
     ''
       set -eu
@@ -344,18 +348,20 @@ rec {
       ''}
       ${lib.optionalString (extraMount != null && extraMountIn) ''
         echo 'Copying extra mount data in...'
-        ${scp_to extraMountArg "/Volumes/MountHDD/data"}
+        ${scp_to extraMountArg mountPath}
         rm -r ${extraMountArg}
       ''}
       ${lib.optionalString (extraMount != null && extraMountOut) ''
         ${ssh_run ''
-          mkdir -p /Volumes/MountHDD/data
+          mkdir -p ${mountPath}
         ''}
       ''}
-      ${ssh_run command}
+      ${ssh_run (command {
+        inherit mountPath;
+      })}
       ${lib.optionalString (extraMount != null && extraMountOut) ''
         echo 'Copying extra mount data out...'
-        ${scp_from "/Volumes/MountHDD/data" extraMountArg}
+        ${scp_from mountPath extraMountArg}
       ''}
       echo 'Shutting down VM...'
       ${ssh_run ''
@@ -375,8 +381,8 @@ rec {
         ${installerScript clToolsInstallersByVersion."${clToolsVersion}"}
         popd
       '';
-      command = ''
-        sudo installer -pkg /Volumes/MountHDD/data/*.dist -target /Applications
+      command = { mountPath, ... }: ''
+        sudo installer -pkg ${mountPath}/*.dist -target /Applications
       '';
     };
 
@@ -389,6 +395,7 @@ rec {
   in pkgs.runCommand "${fixed.name}.json" {} ''
     ${plist2json}/bin/plist2json < ${pkgs.fetchurl {
       inherit (fixed) url sha256 name;
+      meta = metaUnfree;
     }} > $out
   '';
 
@@ -435,6 +442,10 @@ rec {
     lib.concatStrings
     (pkgs.writeText "allInstallersMetadatas")
   ];
+
+  metaUnfree = {
+    license = lib.licenses.unfree;
+  };
 
   touch = {
     inherit catalogPlist allInstallersMetadatas;
