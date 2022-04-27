@@ -349,7 +349,8 @@ rec {
       fi
       ${beforeScript}
       ${lib.optionalString (extraMount != null && (extraMountIn || extraMountOut)) ''
-        MOUNT_HDD=$(${ssh_run "diskutil list -plist"} | ${plist2json}/bin/plist2json | ${pkgs.jq}/bin/jq -r '.AllDisksAndPartitions[] | select(.Content == "").DeviceIdentifier')
+        MOUNT_HDD=$(${ssh_run "diskutil list -plist"} | tee test.plist | ${plist2json}/bin/plist2json | ${pkgs.jq}/bin/jq -r '.AllDisksAndPartitions[] | select(.Content == "").DeviceIdentifier')
+        cat test.plist
         ${lib.pipe ''
           diskutil eraseDisk APFSX MountHDD GPT /dev/MOUNT_HDD
           mkdir ${mountIn} ${mountOut}
