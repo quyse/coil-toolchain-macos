@@ -288,11 +288,17 @@ rec {
       sshpass = "${pkgs.sshpass}/bin/sshpass -p ${vmPassword}";
       ssh_opts = "-o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no";
       ssh_run = command: "${sshpass} ${pkgs.openssh}/bin/ssh ${ssh_opts} -p 20022 ${vmUser}@127.0.0.1 ${lib.escapeShellArg command}";
-      scp_from = src: dst: "${sshpass} ${pkgs.openssh}/bin/scp -r ${ssh_opts} -P 20022 ${vmUser}@127.0.0.1:${src} ${dst}";
-      scp_to = src: dst: "${sshpass} ${pkgs.openssh}/bin/scp -r ${ssh_opts} -P 20022 ${src} ${vmUser}@127.0.0.1:${dst}";
-      extraMountArg = lib.escapeShellArg extraMount;
+      scp_to = src: dst: let
+        srcArg = lib.escapeShellArg src;
+        dstArg = lib.escapeShellArg dst;
+      in ''tar -chf - --mode=u+rw -C "$(dirname "$(readlink -f ${srcArg})")" "$(basename "$(readlink -f ${srcArg})")" | ${ssh_run "tar -xf - --strip-components=1 -C ${dstArg}"}'';
+      scp_from = src: dst: let
+        srcArg = lib.escapeShellArg src;
+        dstArg = lib.escapeShellArg dst;
+      in "${ssh_run ''tar -chf - -C "$(dirname ${srcArg})" "$(basename ${srcArg})"''} | tar -xf - --strip-components=1 -C ${dstArg}";
       hdd = if fastHddOut then "$out" else "hdd.qcow2";
-      mountPath = "/Volumes/MountHDD/data";
+      mountIn = "/Volumes/MountHDD/in";
+      mountOut = "/Volumes/MountHDD/out";
     in pkgs.runCommand name {}
     ''
       set -eu
@@ -344,24 +350,29 @@ rec {
       ${lib.optionalString (extraMount != null && (extraMountIn || extraMountOut)) ''
         ${ssh_run ''
           diskutil eraseDisk APFSX MountHDD GPT /dev/disk0
+          mkdir ${mountIn} ${mountOut}
         ''}
       ''}
       ${lib.optionalString (extraMount != null && extraMountIn) ''
         echo 'Copying extra mount data in...'
-        ${scp_to extraMountArg mountPath}
-        rm -r ${extraMountArg}
+        ${scp_to extraMount mountIn}
+        rm -r ${lib.escapeShellArg extraMount}
       ''}
       ${lib.optionalString (extraMount != null && extraMountOut) ''
         ${ssh_run ''
-          mkdir -p ${mountPath}
+          mkdir -p ${mountOut}
         ''}
       ''}
-      ${ssh_run (command {
-        inherit mountPath;
-      })}
+      ${ssh_run ''
+        set -eu
+        ${command {
+          inherit mountIn mountOut;
+        }}
+      ''}
       ${lib.optionalString (extraMount != null && extraMountOut) ''
         echo 'Copying extra mount data out...'
-        ${scp_from mountPath extraMountArg}
+        mkdir ${extraMount}
+        ${scp_from mountOut extraMount}
       ''}
       echo 'Shutting down VM...'
       ${ssh_run ''
@@ -373,16 +384,16 @@ rec {
 
     clToolsImage = { clToolsVersion ? latestCLToolsVersion }: step {
       name = "macos_${version}_cltools_${clToolsVersion}.qcow2";
-      extraMount = "mount";
+      extraMount = "data";
       extraMountOut = false;
       beforeScript = ''
-        mkdir mount
-        pushd mount
+        mkdir data
+        pushd data
         ${installerScript clToolsInstallersByVersion."${clToolsVersion}"}
         popd
       '';
-      command = { mountPath, ... }: ''
-        sudo installer -pkg ${mountPath}/*.dist -target /Applications
+      command = { mountIn, ... }: ''
+        sudo installer -pkg ${mountIn}/*.dist -target /Applications
       '';
     };
 
