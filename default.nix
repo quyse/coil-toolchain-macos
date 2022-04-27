@@ -287,7 +287,8 @@ rec {
     }: let
       sshpass = "${pkgs.sshpass}/bin/sshpass -p ${vmPassword}";
       ssh_opts = "-o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no";
-      ssh_run = command: "${sshpass} ${pkgs.openssh}/bin/ssh ${ssh_opts} -p 20022 ${vmUser}@127.0.0.1 ${lib.escapeShellArg command}";
+      ssh_run = command: ssh_run_raw (lib.escapeShellArg command);
+      ssh_run_raw = rawCommand: "${sshpass} ${pkgs.openssh}/bin/ssh ${ssh_opts} -p 20022 ${vmUser}@127.0.0.1 ${rawCommand}";
       scp_to = src: dst: let
         srcArg = lib.escapeShellArg src;
         dstArg = lib.escapeShellArg dst;
@@ -348,10 +349,15 @@ rec {
       fi
       ${beforeScript}
       ${lib.optionalString (extraMount != null && (extraMountIn || extraMountOut)) ''
-        ${ssh_run ''
-          diskutil eraseDisk APFSX MountHDD GPT /dev/disk0
+        MOUNT_HDD=$(${ssh_run "diskutil list -plist"} | ${plist2json}/bin/plist2json | ${pkgs.jq}/bin/jq -r '.AllDisksAndPartitions[] | select(.Content == "").DeviceIdentifier')
+        ${lib.pipe ''
+          diskutil eraseDisk APFSX MountHDD GPT /dev/MOUNT_HDD
           mkdir ${mountIn} ${mountOut}
-        ''}
+        '' [
+          lib.escapeShellArg
+          (lib.replaceStrings ["MOUNT_HDD"] ["'$MOUNT_HDD'"])
+          ssh_run_raw
+        ]}
       ''}
       ${lib.optionalString (extraMount != null && extraMountIn) ''
         echo 'Copying extra mount data in...'
