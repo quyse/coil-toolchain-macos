@@ -349,8 +349,21 @@ rec {
       fi
       ${beforeScript}
       ${lib.optionalString (extraMount != null && (extraMountIn || extraMountOut)) ''
-        MOUNT_HDD=$(${ssh_run "diskutil list -plist"} | tee test.plist | ${plist2json}/bin/plist2json | ${pkgs.jq}/bin/jq -r '.AllDisksAndPartitions[] | select(.Content == "").DeviceIdentifier')
-        cat test.plist
+        for i in {1..60}
+        do
+          MOUNT_HDD=$(${ssh_run "diskutil list -plist"} | ${plist2json}/bin/plist2json | ${pkgs.jq}/bin/jq -r '.AllDisksAndPartitions[] | select(.Content == "").DeviceIdentifier')
+          if [ "$MOUNT_HDD" != "" ]
+          then
+            break
+          fi
+          echo "Finding mount disk attempt $i failed"
+          sleep 1
+        done
+        if [ "$MOUNT_HDD" == "" ]
+        then
+          echo 'Failed to find mount disk'
+          exit 1
+        fi
         ${lib.pipe ''
           diskutil eraseDisk APFSX MountHDD GPT /dev/MOUNT_HDD
           mkdir ${mountIn} ${mountOut}
