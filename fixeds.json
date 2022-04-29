@@ -1,8 +1,8 @@
 {
   "fetchgit": {
     "https://github.com/kholia/OSX-KVM.git": {
-      "rev": "670cd80d7b011447453152feeae5ccf637250f8f",
-      "sha256": "14f49yvv53jj2vkvcbfqnzcww8fq0hc40r9sxs49m20ghdylyh91",
+      "rev": "405a54865d9c1bdd5fb4d92e867cf9d78e22f49b",
+      "sha256": "1z7jnnjmvh0ilpkajv0pwlx4yzylwlnnm7l5svxxq193a9zzi1by",
       "url": "https://github.com/kholia/OSX-KVM.git"
     }
   },
@@ -316,10 +316,10 @@
       "url": "https://swdist.apple.com/content/downloads/61/24/001-57224/0o1xetys5n505gocjsil5qo0p4kg939elb/001-57224.English.dist"
     },
     "https://swscan.apple.com/content/catalogs/others/index-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"C924724AFEDA6F878D2DBB0BBFBDDCEC\"",
-      "last-modified": "Tue, 26 Apr 2022 17:15:40 GMT",
+      "etag": "\"313F59D72E0ECDA51AAFEECA60A10404\"",
+      "last-modified": "Thu, 28 Apr 2022 01:06:47 GMT",
       "name": "index-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "19xb9manjywkfx4747776h40mfmvy520kw33j447gd8b3ma18gx7",
+      "sha256": "02w8yjsdlv5ir44r7allsf441k87y2ymm94maqayqpsi7gq11vb0",
       "url": "https://swscan.apple.com/content/catalogs/others/index-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
