@@ -323,30 +323,36 @@ rec {
     in pkgs.runCommand name {}
     ''
       set -eu
-      ${qemu}/bin/qemu-img create -qf qcow2 -b ${baseImage} -F qcow2 ${hdd}
-      ${qemu}/bin/qemu-img create -qf qcow2 mounthdd.qcow2 64G
-      ${runVMScript {
-        inherit hdd;
-        opts = ''
-          -drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
-          -device ide-hd,bus=sata.2,drive=MountHDD \
-        '';
-      }}
       OK=""
-      for i in {1..60}
+      for i in {1..3}
       do
-        if ${ssh_run "true"}
-        then
-          OK=ok
-          echo 'Connected.'
-          break
-        fi
-        echo "Connection attempt $i failed."
-        sleep 1
+        ${qemu}/bin/qemu-img create -qf qcow2 -b ${baseImage} -F qcow2 ${hdd}
+        ${qemu}/bin/qemu-img create -qf qcow2 mounthdd.qcow2 64G
+        echo 'Starting VM...'
+        ${runVMScript {
+          inherit hdd;
+          opts = ''
+            -drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
+            -device ide-hd,bus=sata.2,drive=MountHDD \
+          '';
+        }}
+        for j in {1..10}
+        do
+          if ${ssh_run "true"}
+          then
+            OK=ok
+            echo 'Connected.'
+            break 2
+          fi
+          sleep 1
+        done
+        kill -9 $(<vm.pid)
+        rm ${hdd} mounthdd.qcow2
+        echo "Connecting to VM: attempt $i failed"
       done
       if [ "$OK" != 'ok' ]
       then
-        echo 'Failed to connect to macOS VM'
+        echo 'Connecting to VM: all attempts failed'
         exit 1
       fi
       ${beforeScript}
