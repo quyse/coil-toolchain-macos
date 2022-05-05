@@ -347,6 +347,7 @@ rec {
           sleep 1
         done
         kill -9 $(<vm.pid)
+        tail --pid=$(<vm.pid) -f /dev/null
         rm ${hdd} mounthdd.qcow2
         echo "Connecting to VM: attempt $i failed"
       done
