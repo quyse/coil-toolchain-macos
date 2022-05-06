@@ -348,7 +348,7 @@ rec {
         done
         kill -9 $(<vm.pid)
         tail --pid=$(<vm.pid) -f /dev/null
-        rm ${hdd} mounthdd.qcow2
+        rm ${hdd} mounthdd.qcow2 .ssh/known_hosts
         echo "Connecting to VM: attempt $i failed"
       done
       if [ "$OK" != 'ok' ]
