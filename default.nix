@@ -212,7 +212,7 @@ rec {
         defaults -currentHost write com.apple.screensaver idleTime 0
 
         # create user
-        sysadminctl -addUser ${vmUser} -password ${vmPassword} -admin
+        sysadminctl -addUser ${vmUser} -password ${vmUserPassword} -admin
         # add to sudoers
         cp "$3/etc/sudoers" "$3/etc/sudoers.orig"
         echo "${vmUser} ALL=(ALL) NOPASSWD: ALL" >> "$3/etc/sudoers"
@@ -231,6 +231,12 @@ rec {
         # enable SSH
         cp /System/Library/LaunchDaemons/ssh.plist /Library/LaunchDaemons/ssh.plist
         /usr/libexec/plistbuddy -c "set Disabled FALSE" /Library/LaunchDaemons/ssh.plist
+        # authorize key
+        mkdir -p /Users/${vmUser}/.ssh
+        echo ${lib.escapeShellArg (builtins.readFile "${vmUserKey}/key.pub")} > /Users/${vmUser}/.ssh/authorized_keys
+        chown -R ${vmUser} /Users/${vmUser}/.ssh
+        chmod 700 /Users/${vmUser}/.ssh
+        chmod 600 /Users/${vmUser}/.ssh/authorized_keys
 
         # poweroff
         shutdown -h now
@@ -305,10 +311,8 @@ rec {
     , afterScript ? ""
     , fastHddOut ? !(extraMount != null && extraMountOut) && afterScript == ""
     }: let
-      sshpass = "${pkgs.sshpass}/bin/sshpass -p ${vmPassword}";
-      ssh_opts = "-o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no";
       ssh_run = command: ssh_run_raw (lib.escapeShellArg command);
-      ssh_run_raw = rawCommand: "${sshpass} ${pkgs.openssh}/bin/ssh ${ssh_opts} -p 20022 ${vmUser}@127.0.0.1 ${rawCommand}";
+      ssh_run_raw = rawCommand: "${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no -o PubkeyAuthentication=yes -o PasswordAuthentication=no -i ${vmUserKey}/key -p 20022 ${vmUser}@127.0.0.1 ${rawCommand}";
       scp_to = src: dst: let
         srcArg = lib.escapeShellArg src;
         dstArg = lib.escapeShellArg dst;
@@ -471,7 +475,12 @@ rec {
   ];
 
   vmUser = "vagrant";
-  vmPassword = "vagrant";
+  vmUserPassword = "vagrant";
+
+  vmUserKey = pkgs.runCommand "userKey" {} ''
+    mkdir $out
+    ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -f $out/key -C ${vmUser}
+  '';
 
   allInstallersMetadatas = let
     installers
@@ -488,7 +497,7 @@ rec {
   };
 
   touch = {
-    inherit catalogPlist allInstallersMetadatas;
+    inherit catalogPlist allInstallersMetadatas vmUserKey;
     inherit (packages) initialImage;
     clToolsImage = packages.clToolsImage {};
 
