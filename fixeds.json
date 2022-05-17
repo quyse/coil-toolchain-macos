@@ -14,6 +14,48 @@
       "sha256": "1j8l9azf6f3d7l1k89jzn93ygdzp3nmiahgwv10ipy610kw0n4mr",
       "url": "https://swcdn.apple.com/content/downloads/02/62/071-54303-A_EU2CL1YVT7/943i95dpeyi2ghlnj2mgyq3t202t5gf18b/CLTools_macOSNMOS_SDK.smd"
     },
+    "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/BuildManifest.plist": {
+      "etag": "\"ECADC119372871F4D4C6FA5EDEA95164-1\"",
+      "ignore_last_modified": true,
+      "name": "BuildManifest.plist",
+      "sha256": "1di834sqlgim1sh5gfg8km40zkaak94pbncfw823mc3ricyx20il",
+      "url": "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/BuildManifest.plist"
+    },
+    "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/Info.plist": {
+      "etag": "\"3B89B9310FE8059A4EACC570D94C1D6B-1\"",
+      "ignore_last_modified": true,
+      "name": "Info.plist",
+      "sha256": "0jqvnn03lfwwkbirvvkkr81biy4rxbv7nd7riyqx5cq5m8z46c96",
+      "url": "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/Info.plist"
+    },
+    "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/InstallAssistant.pkg": {
+      "etag": "\"4917828F50172B187E0E81C771CBCEF4-181\"",
+      "ignore_last_modified": true,
+      "name": "InstallAssistant.pkg",
+      "sha256": "0l6cvi5yv13xp7d3179z0sz82n54paa7zv1sbfrx93fgrc1x26i0",
+      "url": "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/InstallAssistant.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/InstallInfo.plist": {
+      "etag": "\"7F740F47FE1FE92F2B7D1B074D851942-1\"",
+      "ignore_last_modified": true,
+      "name": "InstallInfo.plist",
+      "sha256": "1wxr4q24d7y343a73vsnsi7nm6x8xqkwf89bwq0kn0sn54h6rc6r",
+      "url": "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/InstallInfo.plist"
+    },
+    "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/MajorOSInfo.pkg": {
+      "etag": "\"2031FA355252C2B2D5AFF55D901C52CA-1\"",
+      "ignore_last_modified": true,
+      "name": "MajorOSInfo.pkg",
+      "sha256": "1sqw3ngcc4lysknni3s684pkzmvkrv0kyr9f9sgpsfdms4zirzn3",
+      "url": "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/MajorOSInfo.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/UpdateBrain.zip": {
+      "etag": "\"4F6DE6101D299B1CEA14616647BF0328-1\"",
+      "ignore_last_modified": true,
+      "name": "UpdateBrain.zip",
+      "sha256": "0id0dlxsxw6klxkjbn6w9758p874y4vk1ww543ldn23x93gggw8p",
+      "url": "https://swcdn.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/UpdateBrain.zip"
+    },
     "https://swcdn.apple.com/content/downloads/24/42/002-83793-A_74JRE8GVAT/rlnkct919wgc5c0pjq986z5bb9h62uvni2/CLTools_Executables.pkg": {
       "etag": "\"2ABC2CC79A876D09E6AF324774897315-8\"",
       "ignore_last_modified": true,
@@ -83,48 +125,6 @@
       "name": "CLTools_macOSNMOS_SDK.smd",
       "sha256": "075zdyapcwm2szciminxmyifga9mm4s9h4ry13wmdcihxn130ych",
       "url": "https://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_macOSNMOS_SDK.smd"
-    },
-    "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/BuildManifest.plist": {
-      "etag": "\"FA29C7D147FFE2BEB1181DCEE0C53858-1\"",
-      "ignore_last_modified": true,
-      "name": "BuildManifest.plist",
-      "sha256": "0gsrlp82qy9h87b7wd3884zwggsdfs9m2iy2iaa0zbpmjyrx2fcf",
-      "url": "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/BuildManifest.plist"
-    },
-    "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/Info.plist": {
-      "etag": "\"11EA130C69956DB2568BACE946D8812E-1\"",
-      "ignore_last_modified": true,
-      "name": "Info.plist",
-      "sha256": "01b4i8dr718d21h5rg4q2236rhz3hmdw1fd1wqa9rjjj4q5hhb6r",
-      "url": "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/Info.plist"
-    },
-    "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/InstallAssistant.pkg": {
-      "etag": "\"8D595CDBC9B2C0043D14BE7C6F499836-183\"",
-      "ignore_last_modified": true,
-      "name": "InstallAssistant.pkg",
-      "sha256": "0fjdd71p3sngql9w94szgsjbqfq5d69v6wc5v8blb1jrzb6n7bjq",
-      "url": "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/InstallAssistant.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/InstallInfo.plist": {
-      "etag": "\"7F740F47FE1FE92F2B7D1B074D851942-1\"",
-      "ignore_last_modified": true,
-      "name": "InstallInfo.plist",
-      "sha256": "1wxr4q24d7y343a73vsnsi7nm6x8xqkwf89bwq0kn0sn54h6rc6r",
-      "url": "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/InstallInfo.plist"
-    },
-    "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/MajorOSInfo.pkg": {
-      "etag": "\"0E8BAA1BE08E07E2BE4C6D554B0ECD67-1\"",
-      "ignore_last_modified": true,
-      "name": "MajorOSInfo.pkg",
-      "sha256": "1cdfjgx1hyjgcvc21j2fj1r9bzjns6gqv4s4wxnx2cxqcs30zzax",
-      "url": "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/MajorOSInfo.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/UpdateBrain.zip": {
-      "etag": "\"0F84C7E519E06A1781D7DE87CE20A4D4-1\"",
-      "ignore_last_modified": true,
-      "name": "UpdateBrain.zip",
-      "sha256": "1kv9n3js568fi7ssqjbz5ifhilvqh8lvj3iqj5insqxdrgqf5v4z",
-      "url": "https://swcdn.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/UpdateBrain.zip"
     },
     "https://swcdn.apple.com/content/downloads/50/51/071-29699-A_YC8SX0OHH3/7479xojqghsvgtnt3dxjpnxuz9sjpmbmds/CLTools_macOSNMOS_SDK.smd": {
       "ignore_etag": true,
@@ -209,6 +209,13 @@
       "name": "002-77154.English.dist",
       "sha256": "1b06nfg5ycdhbz913s7jbqbxbwbslzgxy1svj6ixip6h205mwfph",
       "url": "https://swdist.apple.com/content/downloads/15/10/002-77154-A_LAKRVPO4Y6/dbmkv9538dfpvqaqdygjciw8775qjuytbh/002-77154.English.dist"
+    },
+    "https://swdist.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/012-06873.English.dist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "012-06873.English.dist",
+      "sha256": "0yppd3zya8hgfji2d2b7asrj9brfx60gnb2lzpvq5yjgh989mzf1",
+      "url": "https://swdist.apple.com/content/downloads/16/08/012-06873-A_636SHHRD4L/528ojpmw00mulgfjsz9k50modkj31a9v0p/012-06873.English.dist"
     },
     "https://swdist.apple.com/content/downloads/17/32/061-26589-A_8GJTCGY9PC/25fhcu905eta7wau7aoafu8rvdm7k1j4el/061-26589.English.dist": {
       "ignore_etag": true,
@@ -300,6 +307,13 @@
       "name": "071-78704.English.dist",
       "sha256": "0srykrmy35bqhxmlm815ayazw3g95xz5ix6j4268pifkasnl85av",
       "url": "https://swdist.apple.com/content/downloads/43/16/071-78704-A_U5B3K7DQY9/cj9xbdobsdoe67yq9e1w2x0cafwjk8ofkr/071-78704.English.dist"
+    },
+    "https://swdist.apple.com/content/downloads/45/40/012-08272-A_KGMMYPA2W5/0b42ig80fy1eau4b7z3oa4bc1ogs2jw23p/012-08272.English.dist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "012-08272.English.dist",
+      "sha256": "03k6hsbvw5m2v6i8hh1jfs4gldb3psxnbz048j1bck83ydblz94n",
+      "url": "https://swdist.apple.com/content/downloads/45/40/012-08272-A_KGMMYPA2W5/0b42ig80fy1eau4b7z3oa4bc1ogs2jw23p/012-08272.English.dist"
     },
     "https://swdist.apple.com/content/downloads/49/07/002-79225-A_68Z2X28AVV/jfmg28xxxarr9av7ry0iefvst7cyl0qdhb/002-79225.English.dist": {
       "ignore_etag": true,
