@@ -294,13 +294,6 @@
       "sha256": "0y5bvhqi26pp62zipkvqar777xxgnm3w8jcrdx55wmaj0iqnlywz",
       "url": "https://swdist.apple.com/content/downloads/41/23/061-26578-A_FF0C6M87LS/ylvl0phx6uy3i444qt9p57n8wz0xnylmd9/061-26578.English.dist"
     },
-    "https://swdist.apple.com/content/downloads/41/34/002-57041-A_P59UQKRDXZ/h73bziwp3o4m5kuk3ool1g55vgplpmkwqv/002-57041.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "002-57041.English.dist",
-      "sha256": "13i6kj89nbcbwa21d73kph76s194nlnw7m4x1d3zfsz386xyp6pr",
-      "url": "https://swdist.apple.com/content/downloads/41/34/002-57041-A_P59UQKRDXZ/h73bziwp3o4m5kuk3ool1g55vgplpmkwqv/002-57041.English.dist"
-    },
     "https://swdist.apple.com/content/downloads/43/16/071-78704-A_U5B3K7DQY9/cj9xbdobsdoe67yq9e1w2x0cafwjk8ofkr/071-78704.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
