@@ -168,13 +168,6 @@
       "sha256": "0w25s6r6q81hkf357yk5g013npbicy6xhrky52xc9w6h1mdi539b",
       "url": "https://swdist.apple.com/content/downloads/05/24/002-23589-A_ZQQIIUQAXQ/zn8n836sojdlmlvqdu7n2k4gj8roqmcysu/002-23589.English.dist"
     },
-    "https://swdist.apple.com/content/downloads/06/34/002-42435-A_MA7OBDUK86/6xzypeod1xebasc92qkw2iv44e1j9pv09f/002-42435.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "002-42435.English.dist",
-      "sha256": "1sfxn1h9lgcvmkbfs6kpyn4b2ai6qg2xif8ild9plp82w5g8p9j8",
-      "url": "https://swdist.apple.com/content/downloads/06/34/002-42435-A_MA7OBDUK86/6xzypeod1xebasc92qkw2iv44e1j9pv09f/002-42435.English.dist"
-    },
     "https://swdist.apple.com/content/downloads/06/50/041-91758-A_M8T44LH2AW/b5r4og05fhbgatve4agwy4kgkzv07mdid9/041-91758.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -280,13 +273,6 @@
       "sha256": "0fa9p9a0z69qpvhz01cgdmhrsscanpdafgk0l2x0bw6cid6wc4vx",
       "url": "https://swdist.apple.com/content/downloads/37/41/001-04366/a6boefh8b6bee4k2x6v5lwyfjr7od2ica3/001-04366.English.dist"
     },
-    "https://swdist.apple.com/content/downloads/39/60/002-23774-A_KNETE2LDIN/4ll6ahj3st7jhqfzzjt1bjp1nhwl4p4zx7/002-23774.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "002-23774.English.dist",
-      "sha256": "1mahjhp005wzz9p2kppm2lq43da4zzirv3sifjimcfcgcw3kx08f",
-      "url": "https://swdist.apple.com/content/downloads/39/60/002-23774-A_KNETE2LDIN/4ll6ahj3st7jhqfzzjt1bjp1nhwl4p4zx7/002-23774.English.dist"
-    },
     "https://swdist.apple.com/content/downloads/41/23/061-26578-A_FF0C6M87LS/ylvl0phx6uy3i444qt9p57n8wz0xnylmd9/061-26578.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -300,6 +286,13 @@
       "name": "071-78704.English.dist",
       "sha256": "0srykrmy35bqhxmlm815ayazw3g95xz5ix6j4268pifkasnl85av",
       "url": "https://swdist.apple.com/content/downloads/43/16/071-78704-A_U5B3K7DQY9/cj9xbdobsdoe67yq9e1w2x0cafwjk8ofkr/071-78704.English.dist"
+    },
+    "https://swdist.apple.com/content/downloads/44/35/012-22320-A_AOID136T4U/g33x1akyjzjpkpe7z0xn7nguoakljpe3a8/012-22320.English.dist": {
+      "etag": "\"A70DD58F8973AF13C6BF5DBD5123D193-1\"",
+      "last-modified": "Tue, 07 Jun 2022 20:43:03 GMT",
+      "name": "012-22320.English.dist",
+      "sha256": "07l3pp03y184bnca3pgaynwahrm7khhmvzx5y6i49kasj4jlc9yb",
+      "url": "https://swdist.apple.com/content/downloads/44/35/012-22320-A_AOID136T4U/g33x1akyjzjpkpe7z0xn7nguoakljpe3a8/012-22320.English.dist"
     },
     "https://swdist.apple.com/content/downloads/45/40/012-08272-A_KGMMYPA2W5/0b42ig80fy1eau4b7z3oa4bc1ogs2jw23p/012-08272.English.dist": {
       "ignore_etag": true,
