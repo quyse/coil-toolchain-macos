@@ -501,6 +501,6 @@ rec {
     inherit (packages) initialImage;
     clToolsImage = packages.clToolsImage {};
 
-    autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
+    #autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
   };
 }
