@@ -342,7 +342,9 @@ rec {
     in pkgs.runCommand name {}
     ''
       set -eu
-      mkdir $out
+      ${lib.optionalString fastHddOut ''
+        mkdir $out
+      ''}
       OK=""
       for i in {1..3}
       do
