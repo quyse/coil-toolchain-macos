@@ -7,7 +7,7 @@
 }:
 
 rec {
-  catalogVersions = "12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard";
+  catalogVersions = "13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard";
 
   catalogPlist = fetchPlist "https://swscan.apple.com/content/catalogs/others/index-${catalogVersions}.merged-1.sucatalog";
   catalog = lib.importJSON catalogPlist;
@@ -75,6 +75,8 @@ rec {
   clToolsInstallersByVersion = lib.pipe allCLToolsInstallers [
     # group by version
     (lib.groupBy (p: p.version))
+    # filter out betas
+    (lib.mapAttrs (_version: installers: lib.filter (installer: lib.strings.match ".*beta.*" installer.title == null) installers))
     # check single package
     (lib.mapAttrs (version: installers: assert lib.length installers == 1; products."${(lib.head installers).key}"))
   ];
@@ -116,6 +118,7 @@ rec {
     runVMScript =
     { name ? "macos"
     , hdd
+    , vars
     , iso ? null
     , qmpSocket ? null
     , opts ? ""
@@ -131,16 +134,17 @@ rec {
       -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" \
       -smbios type=2 \
       -device VGA,vgamem_mb=128 \
+      -rtc base=utc,clock=vm \
       -usb -device usb-kbd -device usb-mouse \
       -device usb-ehci,id=ehci \
       -device ich9-ahci,id=sata \
       -drive if=pflash,format=raw,readonly=on,file=${osxkvm}/OVMF_CODE.fd \
-      -drive if=pflash,format=raw,snapshot=on,file=${osxkvm}/OVMF_VARS-1024x768.fd \
+      -drive if=pflash,format=qcow2,file=${vars} \
       -drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore/OpenCore.qcow2 \
       -device ide-hd,bus=sata.0,drive=OpenCoreBoot \
       -drive id=MacHDD,if=none,file=${hdd},format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
       -device ide-hd,bus=sata.1,drive=MacHDD \
-      -netdev user,id=net0,hostfwd=tcp:127.0.0.1:20022-:22 \
+      -netdev user,id=net0,hostfwd=tcp::20022-:22 \
       -device virtio-net,netdev=net0,id=net0 \
     '' +
     lib.optionalString (qmpSocket != null) ''
@@ -149,16 +153,16 @@ rec {
     lib.optionalString (iso != null) ''
       -cdrom ${iso} \
     '' + opts + ''
-      -vnc 127.0.0.1:4 -daemonize
+      -vnc unix:vnc.socket -daemonize
     '');
 
-    runInstall = hdd: pkgs.writeScript "runInstall.sh" ''
+    runInstall = { hdd, vars }: pkgs.writeScript "runInstall.sh" ''
       set -eu
       mkdir -p floppy/scripts
       cp ${initScript} floppy/init.sh
       cp ${postinstallPackage} floppy/bootstrap.pkg
       ${runVMScript {
-        inherit hdd iso;
+        inherit hdd vars iso;
         qmpSocket = "vm.socket";
         opts = ''
           -drive id=InstallHDD,if=none,file=installhdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
@@ -193,19 +197,23 @@ rec {
       installer -pkg /Volumes/CDROM/installer.pkg/*.dist -target /Volumes/InstallHDD
       # run installer
       /Volumes/InstallHDD/Applications/Install\ macOS\ *.app/Contents/Resources/startosinstall \
-        --agreetolicense --nointeraction --volume /Volumes/MacHDD \
-        --installpackage "/Volumes/QEMU VVFAT/bootstrap.pkg"
+        --agreetolicense --nointeraction --forcequitapps \
+        --volume /Volumes/MacHDD \
+        --installpackage '/Volumes/QEMU VVFAT/bootstrap.pkg'
     '';
 
     postinstallPackage = let
       postinstallScript = pkgs.writeScript "postinstall.sh" ''
         #!/bin/bash
 
+        set -eu
+
         PlistBuddy=/usr/libexec/PlistBuddy
         target_ds_node="$3/private/var/db/dslocal/nodes/Default"
 
         # disable welcome screen
         touch "$3/private/var/db/.AppleSetupDone"
+        touch "$3/var/db/.AppleSetupDone"
 
         # disable power saving stuff
         pmset -a displaysleep 0 disksleep 0 sleep 0 womp 0
@@ -229,6 +237,7 @@ rec {
         $PlistBuddy -c 'Add :users:0 string ${vmUser}' "$ssh_group"
 
         # enable SSH
+        /bin/launchctl load -w /System/Library/LaunchDaemons/ssh.plist
         cp /System/Library/LaunchDaemons/ssh.plist /Library/LaunchDaemons/ssh.plist
         /usr/libexec/plistbuddy -c "set Disabled FALSE" /Library/LaunchDaemons/ssh.plist
         # authorize key
@@ -293,16 +302,21 @@ rec {
     '';
 
     initialImage = pkgs.runCommand "macos_${version}.qcow2" {} ''
-      ${qemu}/bin/qemu-img create -qf qcow2 $out 256G
-      ${qemu}/bin/qemu-img create -qf qcow2 installhdd.qcow2 16G
-      ${runInstall "$out"}
+      mkdir $out
+      ${qemu}/bin/qemu-img create -qf qcow2 $out/hdd.qcow2 256G
+      ${qemu}/bin/qemu-img create -qf qcow2 installhdd.qcow2 128G
+      ${qemu}/bin/qemu-img convert -f raw -O qcow2 ${osxkvm}/OVMF_VARS-1024x768.fd $out/vars.qcow2
+      ${runInstall {
+        hdd = "$out/hdd.qcow2";
+        vars = "$out/vars.qcow2";
+      }}
       echo 'Waiting for install to finish...'
       timeout 1h tail --pid=$(<vm.pid) -f /dev/null
     '';
 
     step =
     { baseImage ? initialImage
-    , name ? "macos_${version}-step${lib.optionalString fastHddOut ".qcow2"}"
+    , name ? "macos_${version}-step"
     , extraMount ? null
     , extraMountIn ? true
     , extraMountOut ? true
@@ -312,7 +326,7 @@ rec {
     , fastHddOut ? !(extraMount != null && extraMountOut) && afterScript == ""
     }: let
       ssh_run = command: ssh_run_raw (lib.escapeShellArg command);
-      ssh_run_raw = rawCommand: "${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no -o PubkeyAuthentication=yes -o PasswordAuthentication=no -i ${vmUserKey}/key -p 20022 ${vmUser}@127.0.0.1 ${rawCommand}";
+      ssh_run_raw = rawCommand: "${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no -o PubkeyAuthentication=yes -o PasswordAuthentication=no -i ${vmUserKey}/key -p 20022 ${vmUser}@localhost ${rawCommand}";
       scp_to = src: dst: let
         srcArg = lib.escapeShellArg src;
         dstArg = lib.escapeShellArg dst;
@@ -321,20 +335,23 @@ rec {
         srcArg = lib.escapeShellArg src;
         dstArg = lib.escapeShellArg dst;
       in "${ssh_run ''tar -chf - -C "$(dirname ${srcArg})" "$(basename ${srcArg})"''} | tar -xf - --strip-components=1 -C ${dstArg}";
-      hdd = if fastHddOut then "$out" else "hdd.qcow2";
+      hdd = if fastHddOut then "$out/hdd.qcow2" else "hdd.qcow2";
+      vars = if fastHddOut then "$out/vars.qcow2" else "vars.qcow2";
       mountIn = "/Volumes/MountHDD/in";
       mountOut = "/Volumes/MountHDD/out";
     in pkgs.runCommand name {}
     ''
       set -eu
+      mkdir $out
       OK=""
       for i in {1..3}
       do
-        ${qemu}/bin/qemu-img create -qf qcow2 -b ${baseImage} -F qcow2 ${hdd}
-        ${qemu}/bin/qemu-img create -qf qcow2 mounthdd.qcow2 64G
+        ${qemu}/bin/qemu-img create -qf qcow2 -b ${baseImage}/hdd.qcow2 -F qcow2 ${hdd}
+        ${qemu}/bin/qemu-img create -qf qcow2 mounthdd.qcow2 128G
+        ${qemu}/bin/qemu-img create -qf qcow2 -b ${baseImage}/vars.qcow2 -F qcow2 ${vars}
         echo 'Starting VM...'
         ${runVMScript {
-          inherit hdd;
+          inherit hdd vars;
           opts = ''
             -drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
             -device ide-hd,bus=sata.2,drive=MountHDD \
@@ -398,6 +415,7 @@ rec {
       ''}
       ${ssh_run ''
         set -eu
+        echo 'Performing command...'
         ${command {
           inherit mountIn mountOut;
         }}
@@ -456,12 +474,12 @@ rec {
   };
 
   # macOS Monterey
-  majorOSVersion = "12";
+  majorOSVersion = "13";
   latestOSVersion = lib.pipe allOSInstallers [
     (lib.filter (info: lib.hasPrefix "${majorOSVersion}." info.version && builtins.compareVersions info.version majorOSVersion >= 0))
-    (map (info: info.version))
-    (lib.sort (a: b: builtins.compareVersions a b > 0))
+    (lib.sort (a: b: [(builtins.compareVersions a.version b.version) a.date] > [0 b.date]))
     lib.head
+    (info: info.version)
   ];
   packages = macosPackages {
     version = latestOSVersion;

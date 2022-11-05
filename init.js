@@ -165,7 +165,17 @@ const aFewAttempts = async (message, attempt, recover) => {
     throw `${message}: timed out!`;
   };
 
-  await waitForText('Waiting for boot', 'macOS Utilities', 300);
+  await sleep(10);
+
+  console.log('Choosing base system drive...');
+  for(let i = 0; i < 3; ++i) {
+    await typeSym(socket, 'right');
+    await sleep(1);
+    await typeSym(socket, 'ret');
+    await sleep(1);
+  }
+
+  await waitForText('Waiting for boot', 'Utilities', 300);
 
   await sleep(1);
 
