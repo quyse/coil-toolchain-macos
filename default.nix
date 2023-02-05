@@ -359,7 +359,7 @@ rec {
             -device ide-hd,bus=sata.2,drive=MountHDD \
           '';
         }}
-        for j in {1..10}
+        for j in {1..30}
         do
           if ${ssh_run "true"}
           then
