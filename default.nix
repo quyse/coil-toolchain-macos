@@ -77,6 +77,8 @@ rec {
     (lib.groupBy (p: p.version))
     # filter out betas
     (lib.mapAttrs (_version: installers: lib.filter (installer: lib.strings.match ".*beta.*" installer.title == null) installers))
+    # filter out versions with no installers
+    (lib.filterAttrs (_version: installers: lib.length installers > 0))
     # check single package
     (lib.mapAttrs (version: installers: assert lib.length installers == 1; products."${(lib.head installers).key}"))
   ];
@@ -488,8 +490,8 @@ rec {
     baseSystemVersion = "10.15.7"; # latest Catalina
   };
 
-  latestCLToolsVersion = lib.pipe allCLToolsInstallers [
-    (map (info: info.version))
+  latestCLToolsVersion = lib.pipe clToolsInstallersByVersion [
+    (lib.mapAttrsToList (version: _installer: version))
     (lib.sort (a: b: builtins.compareVersions a b > 0))
     lib.head
   ];
