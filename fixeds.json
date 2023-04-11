@@ -1,8 +1,8 @@
 {
   "fetchgit": {
     "https://github.com/kholia/OSX-KVM.git": {
-      "rev": "93dc32c8a5524d6141347ad59bd11329533db4bd",
-      "sha256": "174kmrk7p2xzs3gj6xvxppnfz3ixlmmbh258kbjvf1x37dcgksxy",
+      "rev": "bd762570abda8498e67f128fbf675f5858f8d51e",
+      "sha256": "0p29lb3prrbxwh3r123vsbf9pwhjf6hbimv1wrb0bibd57m85m6f",
       "url": "https://github.com/kholia/OSX-KVM.git"
     }
   },
@@ -266,6 +266,13 @@
       "sha256": "19gx860nvr7srhlhb6r10jpn35rvf5k56h3i457qlk2q2w6aykka",
       "url": "https://swdist.apple.com/content/downloads/23/45/001-36735-A_IRCLJ5YYKF/z8vka6xfykydycui5b7atpc52btxmbffdn/001-36735.English.dist"
     },
+    "https://swdist.apple.com/content/downloads/24/38/032-71575-A_N8LLYQ3VAW/slqvm2ho1x1h2rtmevw0ev05er5mvoqp16/032-71575.English.dist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "032-71575.English.dist",
+      "sha256": "0s52r4q1nwxd7kh0iis8m7ab9685vqbf0vqx9driv6q0d0fj71dl",
+      "url": "https://swdist.apple.com/content/downloads/24/38/032-71575-A_N8LLYQ3VAW/slqvm2ho1x1h2rtmevw0ev05er5mvoqp16/032-71575.English.dist"
+    },
     "https://swdist.apple.com/content/downloads/26/15/032-48342-A_OG2YEE7OSX/8sd3qpy79cimb7cjiy47cytps0gm7m0z5l/032-48342.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -279,6 +286,13 @@
       "name": "001-68446.English.dist",
       "sha256": "0wa78adyhqw9dv7jnqllx5w8s0kl19fkz5w175hzrrchkk0bqvkc",
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/001-68446.English.dist"
+    },
+    "https://swdist.apple.com/content/downloads/26/50/032-71551-A_NEEJFFMQN1/c06fxmsx5spzdzexzlfoexop24tl03i490/032-71551.English.dist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "032-71551.English.dist",
+      "sha256": "1qrxpp0ik1ss4i84j5c6zmgy6061b40cxdawxysqr949kg75g7fg",
+      "url": "https://swdist.apple.com/content/downloads/26/50/032-71551-A_NEEJFFMQN1/c06fxmsx5spzdzexzlfoexop24tl03i490/032-71551.English.dist"
     },
     "https://swdist.apple.com/content/downloads/26/54/032-50519-A_CXUH67MIZN/z1mbjod7nna0yhubto3a7pyq1gilhin6fw/032-50519.English.dist": {
       "ignore_etag": true,
@@ -386,10 +400,10 @@
       "url": "https://swdist.apple.com/content/downloads/61/24/001-57224/0o1xetys5n505gocjsil5qo0p4kg939elb/001-57224.English.dist"
     },
     "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"AD880FF15A1113CCBB7C5C42475CB0E0\"",
+      "etag": "\"17588E5D235556814A1FA51FED5678D6\"",
       "ignore_last_modified": true,
       "name": "index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "18jwjr1b866zq33nzlsqgm6qkphm27sc4bjkkyi2hwib280c61c5",
+      "sha256": "1mq041hskck548g4zzc36500pkkhkrii6kjaknsn39d48n055p84",
       "url": "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
