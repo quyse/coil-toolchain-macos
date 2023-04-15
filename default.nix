@@ -477,7 +477,7 @@ rec {
     inherit qemu; # no need to use full qemu
   };
 
-  # macOS Monterey
+  # macOS Ventura
   majorOSVersion = "13";
   latestOSVersion = lib.pipe allOSInstallers [
     (lib.filter (info: lib.hasPrefix "${majorOSVersion}." info.version && builtins.compareVersions info.version majorOSVersion >= 0))
