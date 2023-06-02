@@ -1,8 +1,8 @@
 {
   "fetchgit": {
     "https://github.com/kholia/OSX-KVM.git": {
-      "rev": "bd762570abda8498e67f128fbf675f5858f8d51e",
-      "sha256": "0p29lb3prrbxwh3r123vsbf9pwhjf6hbimv1wrb0bibd57m85m6f",
+      "rev": "d4446756a2e7ed49bbc53efcb754ca96fb4ee1c1",
+      "sha256": "1p34n8qiakwndy0681ivkivc4jm2h19vd4acd3rks1rv328cmg1i",
       "url": "https://github.com/kholia/OSX-KVM.git"
     }
   },
@@ -21,6 +21,48 @@
       "sha256": "1qfwy0h29xl2zkkmajqv7ip2c5z0bxhggn1vxz3f71m41fxyrxzm",
       "url": "https://swcdn.apple.com/content/downloads/03/28/012-92431-A_FKICGWU4EK/eflw1v4c64sgmvux4ljc083cfjj663wu9g/CLTools_macOSNMOS_SDK.smd"
     },
+    "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_Executables.pkg": {
+      "etag": "\"DB44B48FE2A9F4D6821C211730E611A0-8\"",
+      "ignore_last_modified": true,
+      "name": "CLTools_Executables.pkg",
+      "sha256": "0cpac5p84pb42i62z39vqa4k3y2hkb54bn733dhw5dn8pf3d0bd3",
+      "url": "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_Executables.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_SwiftBackDeploy.pkg": {
+      "etag": "\"D66A458694DDED7358B7A824E5EEF507-2\"",
+      "ignore_last_modified": true,
+      "name": "CLTools_SwiftBackDeploy.pkg",
+      "sha256": "0d2ifqcaldwx3387whs4k71jsb5zrn4qy0h6p70rg7jnxxknq7sk",
+      "url": "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_SwiftBackDeploy.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOSLMOS_SDK.pkg": {
+      "etag": "\"94E49DA662BEA5DF0696F1DD2C53D3F0-1\"",
+      "ignore_last_modified": true,
+      "name": "CLTools_macOSLMOS_SDK.pkg",
+      "sha256": "0v37ggypncdw9xm04m1445sgxg0yhgsc3dy2nvz9rcyv632v2ipn",
+      "url": "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOSLMOS_SDK.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOSNMOS_SDK.pkg": {
+      "etag": "\"13AFBE1B98D487E337D47AFF34D4BD6A-1\"",
+      "ignore_last_modified": true,
+      "name": "CLTools_macOSNMOS_SDK.pkg",
+      "sha256": "0407l5jmyhg672p45876w4nw2cj9zzvlnpd6wap132d38galadf3",
+      "url": "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOSNMOS_SDK.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOSNMOS_SDK.smd": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "CLTools_macOSNMOS_SDK.smd",
+      "sha256": "0j7cda3y2154fszqfx9zlw3kyhwz295v8nblplz8pqs2ircnvljc",
+      "url": "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOSNMOS_SDK.smd"
+    },
+    "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOS_SDK.pkg": {
+      "etag": "\"25A7B073E86CDD224A235B5DC7281F6D-1\"",
+      "ignore_last_modified": true,
+      "name": "CLTools_macOS_SDK.pkg",
+      "sha256": "1dk0pmfpd4lf2y63yx9f6lyv0q1xhr02ly515p4xgl2ijy3zqsnw",
+      "url": "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_macOS_SDK.pkg"
+    },
     "https://swcdn.apple.com/content/downloads/24/42/002-83793-A_74JRE8GVAT/rlnkct919wgc5c0pjq986z5bb9h62uvni2/CLTools_macOSNMOS_SDK.smd": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -34,48 +76,6 @@
       "name": "BaseSystem.dmg",
       "sha256": "10dhcnspgs38221ihnxhm5msx8ljairpxbhkkxydcyph3m6xixyg",
       "url": "https://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.dmg"
-    },
-    "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_Executables.pkg": {
-      "etag": "\"6EB140D12A4146E378CFB35E65D0772B-8\"",
-      "ignore_last_modified": true,
-      "name": "CLTools_Executables.pkg",
-      "sha256": "0ac52fj13hfsf0x53z8ll79pxxbslvwfgdvip0vnlnm0jx3gnhsy",
-      "url": "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_Executables.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_SwiftBackDeploy.pkg": {
-      "etag": "\"3B2777B6353758263EEF2DB585BC3D72-2\"",
-      "ignore_last_modified": true,
-      "name": "CLTools_SwiftBackDeploy.pkg",
-      "sha256": "16y1nl9k2mq3j5yfl2gr8gxyfyjx9lcvccpr711wbbr6zrv13g1z",
-      "url": "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_SwiftBackDeploy.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOSLMOS_SDK.pkg": {
-      "etag": "\"4FCBCFFE7AAB2465D2AED7ABB0A212E0-1\"",
-      "ignore_last_modified": true,
-      "name": "CLTools_macOSLMOS_SDK.pkg",
-      "sha256": "1s7ql2sg9kkny80smazzkyn9wp0smyn3jr2ypa7z9jdws81xw19g",
-      "url": "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOSLMOS_SDK.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOSNMOS_SDK.pkg": {
-      "etag": "\"6E96F3B85A6364013C4849F690AD4FB0-1\"",
-      "ignore_last_modified": true,
-      "name": "CLTools_macOSNMOS_SDK.pkg",
-      "sha256": "16xldfr054g40rik1i85ak9a51g9xqy44jszcgwjrdmfafwzcrpx",
-      "url": "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOSNMOS_SDK.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOSNMOS_SDK.smd": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "CLTools_macOSNMOS_SDK.smd",
-      "sha256": "0j7cda3y2154fszqfx9zlw3kyhwz295v8nblplz8pqs2ircnvljc",
-      "url": "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOSNMOS_SDK.smd"
-    },
-    "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOS_SDK.pkg": {
-      "etag": "\"61037931950152F44EF9F782F403D65C-1\"",
-      "ignore_last_modified": true,
-      "name": "CLTools_macOS_SDK.pkg",
-      "sha256": "02zp1ypg03hwp2m6wkf1jds4zz1282krgwagpx2v2kvyn3kvmfh4",
-      "url": "https://swcdn.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/CLTools_macOS_SDK.pkg"
     },
     "https://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_macOSNMOS_SDK.smd": {
       "ignore_etag": true,
@@ -210,6 +210,13 @@
       "sha256": "0gnzdgn0yn5sfrkr67vjx6ham80w6jgjrczylzzav639388yb32v",
       "url": "https://swdist.apple.com/content/downloads/15/42/032-63762-A_6CJ6JOEC74/hdc26sfhq2a4c4x7yvafi9mrbe3jg3xo3d/032-63762.English.dist"
     },
+    "https://swdist.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/032-84673.English.dist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "032-84673.English.dist",
+      "sha256": "1v5ljrz09m6plxbx97kgrx0ayp9gi21gaki9b840vnwhca2x17c6",
+      "url": "https://swdist.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/032-84673.English.dist"
+    },
     "https://swdist.apple.com/content/downloads/17/14/032-33828-A_KX25OQBX8S/lz9yip4rmenyju8nkv4wpaqtdmvzfogkcb/032-33828.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -287,13 +294,6 @@
       "sha256": "1pfkc7k4hd0923knh2l0r247zazf9l635r53xhwk45lsd7l1d9vp",
       "url": "https://swdist.apple.com/content/downloads/26/54/032-50519-A_CXUH67MIZN/z1mbjod7nna0yhubto3a7pyq1gilhin6fw/032-50519.English.dist"
     },
-    "https://swdist.apple.com/content/downloads/30/37/012-60271-A_QUUGE8KIJ8/yp0xtj55orcpxszdtd13xjhujppspsztj3/012-60271.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "012-60271.English.dist",
-      "sha256": "105yhpyr9kqdiz1znw5fg1n7a2y7l3pk3x2qg345ih62sip1f4g5",
-      "url": "https://swdist.apple.com/content/downloads/30/37/012-60271-A_QUUGE8KIJ8/yp0xtj55orcpxszdtd13xjhujppspsztj3/012-60271.English.dist"
-    },
     "https://swdist.apple.com/content/downloads/34/54/041-88800-A_HLMBDM42FL/anrmoj880qkj0lbybqm0c3830p70nawjrv/041-88800.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -314,13 +314,6 @@
       "name": "001-04366.English.dist",
       "sha256": "0fa9p9a0z69qpvhz01cgdmhrsscanpdafgk0l2x0bw6cid6wc4vx",
       "url": "https://swdist.apple.com/content/downloads/37/41/001-04366/a6boefh8b6bee4k2x6v5lwyfjr7od2ica3/001-04366.English.dist"
-    },
-    "https://swdist.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/032-64167.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "032-64167.English.dist",
-      "sha256": "0qlkb6lyg8ycm1zqhhy9bj3qqdcyiimw2g2czv9hlgcynacg33lp",
-      "url": "https://swdist.apple.com/content/downloads/38/61/032-64167-A_F8LL7XSTW6/k3kg0uip4kxd3qupgy6y8fzp27mnxdpt6y/032-64167.English.dist"
     },
     "https://swdist.apple.com/content/downloads/41/23/061-26578-A_FF0C6M87LS/ylvl0phx6uy3i444qt9p57n8wz0xnylmd9/061-26578.English.dist": {
       "ignore_etag": true,
@@ -379,10 +372,10 @@
       "url": "https://swdist.apple.com/content/downloads/63/49/032-84910-A_3SSTBN1HDA/h89vitwfbzt54jcbwpfwkmrn12smedicny/032-84910.English.dist"
     },
     "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"E77AB15EE14D3442EBABF49EB296FD7C\"",
+      "etag": "\"4347F376324E33C5FF34C96FD288753F\"",
       "ignore_last_modified": true,
       "name": "index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "08cks97awmdj80s2hhv0hpajxd01w02ni49lvaw5z3hw3jnw7b8k",
+      "sha256": "0jjbbxd4j3h2n92aga8hbyq896v475b6b9xand7cbn10aip18il8",
       "url": "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
