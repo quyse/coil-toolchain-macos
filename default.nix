@@ -135,7 +135,7 @@ rec {
       -machine q35 \
       -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" \
       -smbios type=2 \
-      -device VGA,vgamem_mb=128 \
+      -device vmware-svga \
       -rtc base=utc,clock=vm \
       -usb -device usb-kbd -device usb-mouse \
       -device usb-ehci,id=ehci \
