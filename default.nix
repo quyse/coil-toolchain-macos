@@ -146,7 +146,7 @@ rec {
       -device ide-hd,bus=sata.0,drive=OpenCoreBoot \
       -drive id=MacHDD,if=none,file=${hdd},format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
       -device ide-hd,bus=sata.1,drive=MacHDD \
-      -netdev user,id=net0,hostfwd=tcp::20022-:22 \
+      -netdev user,id=net0,hostfwd=tcp:127.0.0.1:${vmSshPort}-:22 \
       -device virtio-net,netdev=net0,id=net0 \
     '' +
     lib.optionalString (qmpSocket != null) ''
@@ -326,9 +326,10 @@ rec {
     , command
     , afterScript ? ""
     , fastHddOut ? !(extraMount != null && extraMountOut) && afterScript == ""
+    , impure ? false
     }: let
       ssh_run = command: ssh_run_raw (lib.escapeShellArg command);
-      ssh_run_raw = rawCommand: "${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no -o PubkeyAuthentication=yes -o PasswordAuthentication=no -i ${vmUserKey}/key -p 20022 ${vmUser}@localhost ${rawCommand}";
+      ssh_run_raw = rawCommand: "${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no -o PubkeyAuthentication=yes -o PasswordAuthentication=no -i ${vmUserKey}/key -p ${vmSshPort} ${vmUser}@127.0.0.1 ${rawCommand}";
       scp_to = src: dst: let
         srcArg = lib.escapeShellArg src;
         dstArg = lib.escapeShellArg dst;
@@ -341,8 +342,7 @@ rec {
       vars = if fastHddOut then "$out/vars.qcow2" else "vars.qcow2";
       mountIn = "/Volumes/MountHDD/in";
       mountOut = "/Volumes/MountHDD/out";
-    in pkgs.runCommand name {}
-    ''
+    in pkgs.runCommand name (if impure then { __impure = true; } else {}) ''
       set -eu
       ${lib.optionalString fastHddOut ''
         mkdir $out
@@ -498,6 +498,11 @@ rec {
 
   vmUser = "vagrant";
   vmUserPassword = "vagrant";
+  # just some random port
+  # TODO: actually use random port or use hostfwd unix:
+  # (if it ever gets implemented https://gitlab.com/qemu-project/qemu/-/issues/347)
+  # in impure mode this port is opened on host's localhost, and so may conflict
+  vmSshPort = "43278";
 
   vmUserKey = pkgs.runCommand "userKey" {} ''
     mkdir $out
