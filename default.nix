@@ -90,12 +90,12 @@ rec {
     (map (pkg: lib.optional (pkg ? URL) pkg.URL))
     lib.concatLists
     (map (url: let
-      fixed = fixeds.fetchurl."${url}" or null;
+      fixed = fixeds.fetchurl."${url}";
     in ''
-      ln -s ${if fixed == null then builtins.trace url (builtins.fetchurl url) else pkgs.fetchurl {
+      ln -s ${pkgs.fetchurl {
         inherit (fixed) url sha256 name;
         meta = metaUnfree;
-      }} ${lib.escapeShellArg (if fixed == null then "zzz" else fixed.name)}
+      }} ${lib.escapeShellArg fixed.name}
     ''))
     lib.concatStrings
   ];
