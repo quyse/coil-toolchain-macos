@@ -97,6 +97,7 @@ rec {
         meta = metaUnfree;
       }} ${lib.escapeShellArg fixed.name}
     ''))
+    (lib.sort (a: b: a < b))
     lib.concatStrings
   ];
 
