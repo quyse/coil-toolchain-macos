@@ -124,7 +124,7 @@ rec {
     , iso ? null
     , qmpSocket ? null
     , opts ? ""
-    }: pkgs.writeScript "run.sh" (''
+    }: pkgs.writeShellScript "run.sh" (''
       ${qemu}/bin/qemu-system-x86_64 \
       -name ${name} \
       -enable-kvm \
@@ -139,6 +139,9 @@ rec {
       -rtc base=utc,clock=vm \
       -usb -device usb-kbd -device usb-mouse \
       -device usb-ehci,id=ehci \
+      -device nec-usb-xhci,id=xhci \
+      -global nec-usb-xhci.msi=off \
+      -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off \
       -device ich9-ahci,id=sata \
       -drive if=pflash,format=raw,readonly=on,file=${osxkvm}/OVMF_CODE.fd \
       -drive if=pflash,format=qcow2,file=${vars} \
@@ -158,7 +161,7 @@ rec {
       -vnc unix:vnc.socket -daemonize
     '');
 
-    runInstall = { hdd, vars }: pkgs.writeScript "runInstall.sh" ''
+    runInstall = { hdd, vars }: pkgs.writeShellScript "runInstall.sh" ''
       set -eu
       mkdir -p floppy/scripts
       cp ${initScript} floppy/init.sh
@@ -201,7 +204,7 @@ rec {
       /Volumes/InstallHDD/Applications/Install\ macOS\ *.app/Contents/Resources/startosinstall \
         --agreetolicense --nointeraction --forcequitapps \
         --volume /Volumes/MacHDD \
-        --installpackage '/Volumes/QEMU VVFAT/bootstrap.pkg'
+        --installpackage /Volumes/QEMU\ VVFAT/bootstrap.pkg
     '';
 
     postinstallPackage = let
