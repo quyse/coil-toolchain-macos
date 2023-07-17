@@ -265,7 +265,10 @@ rec {
       find . | ${pkgs.cpio}/bin/cpio -o --format odc --owner 0:80 | gzip -c > ../flat/bootstrap.pkg/Payload
       popd
       # bom file
-      ${pkgs.bomutils}/bin/mkbom -u 0 -g 80 root flat/bootstrap.pkg/Bom
+      ${pkgs.bomutils.overrideAttrs (attrs: {
+        # causes runtime crash
+        hardeningDisable = ["fortify3"];
+      })}/bin/mkbom -u 0 -g 80 root flat/bootstrap.pkg/Bom
       # scripts
       mkdir scripts
       cp ${postinstallScript} scripts/postinstall
