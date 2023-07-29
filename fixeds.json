@@ -407,10 +407,10 @@
       "url": "https://swdist.apple.com/content/downloads/63/49/032-84910-A_3SSTBN1HDA/h89vitwfbzt54jcbwpfwkmrn12smedicny/032-84910.English.dist"
     },
     "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"2B4359AB98DC74E71253E50606E2F5FB\"",
+      "etag": "\"DC4351C2B23097ADC5D6FDE5C31A778E\"",
       "ignore_last_modified": true,
       "name": "index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "1qf1rxpz615ma0d2xp6qgla3d389xfcphqjdrj4pfnv3l07sj4rh",
+      "sha256": "1wwccqbk0s9ar6inrlkjp6kab9pb2cnv5hdd8i7rwcszcf591vyf",
       "url": "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
