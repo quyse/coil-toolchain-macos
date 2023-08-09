@@ -63,6 +63,13 @@
       "sha256": "1qfwy0h29xl2zkkmajqv7ip2c5z0bxhggn1vxz3f71m41fxyrxzm",
       "url": "https://swcdn.apple.com/content/downloads/03/28/012-92431-A_FKICGWU4EK/eflw1v4c64sgmvux4ljc083cfjj663wu9g/CLTools_macOSNMOS_SDK.smd"
     },
+    "https://swcdn.apple.com/content/downloads/03/60/042-25446-A_AI2YFE26GU/jbdxj7xpdw76xxyxqjejm3ui3njbi3yyj2/CLTools_macOSNMOS_SDK.smd": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "CLTools_macOSNMOS_SDK.smd",
+      "sha256": "1ddy6ms0dm90h4n9hvyrwgy6zcvhg2m3ni9ydv965a4yggh4m07n",
+      "url": "https://swcdn.apple.com/content/downloads/03/60/042-25446-A_AI2YFE26GU/jbdxj7xpdw76xxyxqjejm3ui3njbi3yyj2/CLTools_macOSNMOS_SDK.smd"
+    },
     "https://swcdn.apple.com/content/downloads/15/62/032-84673-A_7A1TG1RF8Z/xpc8q44ggn2pkn82iwr0fi1zeb9cxi8ath/CLTools_Executables.pkg": {
       "etag": "\"DB44B48FE2A9F4D6821C211730E611A0-8\"",
       "ignore_last_modified": true,
@@ -118,13 +125,6 @@
       "name": "BaseSystem.dmg",
       "sha256": "10dhcnspgs38221ihnxhm5msx8ljairpxbhkkxydcyph3m6xixyg",
       "url": "https://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.dmg"
-    },
-    "https://swcdn.apple.com/content/downloads/31/21/042-23399-A_775PMNAI7Q/5i4hpsz2crh04h91uf95h11f004su8wnks/CLTools_macOSNMOS_SDK.smd": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "CLTools_macOSNMOS_SDK.smd",
-      "sha256": "1p5x3v7m2ns18w0cmx7fs3gsg1d6v4gpbrh3pnn7b6s5im66hn8z",
-      "url": "https://swcdn.apple.com/content/downloads/31/21/042-23399-A_775PMNAI7Q/5i4hpsz2crh04h91uf95h11f004su8wnks/CLTools_macOSNMOS_SDK.smd"
     },
     "https://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_macOSNMOS_SDK.smd": {
       "ignore_etag": true,
@@ -407,10 +407,10 @@
       "url": "https://swdist.apple.com/content/downloads/63/49/032-84910-A_3SSTBN1HDA/h89vitwfbzt54jcbwpfwkmrn12smedicny/032-84910.English.dist"
     },
     "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"DE1AC89840F3E6752824AD8E546FE84F\"",
+      "etag": "\"AF5D437ED0EB0B6DDBEBAC647F5FDC8B\"",
       "ignore_last_modified": true,
       "name": "index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "1vppb2mbykyhar2m2n78ar2viaclis6cjjhszfyrarz07fpsgq77",
+      "sha256": "1xd0x9i7s924si61wvkxl7ynfq11s4lrv8s6dz8py8sg10ha1wi2",
       "url": "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
