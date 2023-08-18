@@ -7,48 +7,6 @@
     }
   },
   "fetchurl": {
-    "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/BuildManifest.plist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "BuildManifest.plist",
-      "sha256": "0rxdlimc9xm1pzgk6vrx9aswnmlfzdv5y2pag4l2vka268r788wx",
-      "url": "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/BuildManifest.plist"
-    },
-    "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/Info.plist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "Info.plist",
-      "sha256": "16micbydn3lvwqi5n78j73iharzka0w75yyl0r00wd2km7amn8xn",
-      "url": "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/Info.plist"
-    },
-    "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/InstallAssistant.pkg": {
-      "etag": "\"863F0869D1831982D9114928E118DFD3-178\"",
-      "ignore_last_modified": true,
-      "name": "InstallAssistant.pkg",
-      "sha256": "0d5r1smdgb0aqsv59aab3c0iv5s8qpayz6p5lj8d340612x9dqnn",
-      "url": "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/InstallAssistant.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/InstallInfo.plist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "InstallInfo.plist",
-      "sha256": "0v354bgjfama2n93a9rnghj5d96hnn7s15s3yppcrymlc24llw4p",
-      "url": "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/InstallInfo.plist"
-    },
-    "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/MajorOSInfo.pkg": {
-      "etag": "\"CECD9A610E9C74EE23B05A6A5997E16C-1\"",
-      "ignore_last_modified": true,
-      "name": "MajorOSInfo.pkg",
-      "sha256": "1kn959x38a82i9vwzmag03dclvwy66igk84g71iai3x8l3cd4rbs",
-      "url": "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/MajorOSInfo.pkg"
-    },
-    "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/UpdateBrain.zip": {
-      "etag": "\"3452FC51CDBD85CA80F29BBBBE3DDBC2-1\"",
-      "ignore_last_modified": true,
-      "name": "UpdateBrain.zip",
-      "sha256": "0ai4c4zn62csm2x4rrpbmi84saj9z0garlvriacvxlfpj32ncn55",
-      "url": "https://swcdn.apple.com/content/downloads/01/07/032-69593-A_15V577BH7O/fau3wbhcg9pmo81cgkb2qjp0gfbp1jxu26/UpdateBrain.zip"
-    },
     "https://swcdn.apple.com/content/downloads/02/62/071-54303-A_EU2CL1YVT7/943i95dpeyi2ghlnj2mgyq3t202t5gf18b/CLTools_macOSNMOS_SDK.smd": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -118,6 +76,48 @@
       "name": "CLTools_macOSNMOS_SDK.smd",
       "sha256": "18fmbms51pqrmqk25nmf9hzgj12z1gwjz1m9nyw5zjy2g2g7dw33",
       "url": "https://swcdn.apple.com/content/downloads/24/42/002-83793-A_74JRE8GVAT/rlnkct919wgc5c0pjq986z5bb9h62uvni2/CLTools_macOSNMOS_SDK.smd"
+    },
+    "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/BuildManifest.plist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "BuildManifest.plist",
+      "sha256": "1qkinjg3d1rww64306jrljl66c1lj46algfwyq4pm4b7gdkxnhwv",
+      "url": "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/BuildManifest.plist"
+    },
+    "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/Info.plist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "Info.plist",
+      "sha256": "1bk97m1j9rzwjrq3iiw6h634ssxjv8ps19ycbyszxlmafz98sv2j",
+      "url": "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/Info.plist"
+    },
+    "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/InstallAssistant.pkg": {
+      "etag": "\"0554E4EFFAB0187C7D77AB277436301A-178\"",
+      "ignore_last_modified": true,
+      "name": "InstallAssistant.pkg",
+      "sha256": "0cf2y1a6wdk96dbci1bqdk3abap4c1qwgbp5dwcrsjhxzfknv69z",
+      "url": "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/InstallAssistant.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/InstallInfo.plist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "InstallInfo.plist",
+      "sha256": "0v354bgjfama2n93a9rnghj5d96hnn7s15s3yppcrymlc24llw4p",
+      "url": "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/InstallInfo.plist"
+    },
+    "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/MajorOSInfo.pkg": {
+      "etag": "\"95E85D83BC95B351F1175E82966B342A-1\"",
+      "ignore_last_modified": true,
+      "name": "MajorOSInfo.pkg",
+      "sha256": "0jbc3bhgx6i4dlafmn88cpd1khw2dadymfa4dk0bdqmw6w2rrhn0",
+      "url": "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/MajorOSInfo.pkg"
+    },
+    "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/UpdateBrain.zip": {
+      "etag": "\"6D117185718CC01D3EC56552973D5BDC-1\"",
+      "ignore_last_modified": true,
+      "name": "UpdateBrain.zip",
+      "sha256": "0bb5hclwn0l187sjz6g570pbf2lkpfhsxwn23cx7b4s6b936dddb",
+      "url": "https://swcdn.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/UpdateBrain.zip"
     },
     "https://swcdn.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/BaseSystem.dmg": {
       "etag": "\"76A63F2ADA06FD857D13821E2F958F76-8\"",
@@ -280,6 +280,13 @@
       "sha256": "0s52r4q1nwxd7kh0iis8m7ab9685vqbf0vqx9driv6q0d0fj71dl",
       "url": "https://swdist.apple.com/content/downloads/24/38/032-71575-A_N8LLYQ3VAW/slqvm2ho1x1h2rtmevw0ev05er5mvoqp16/032-71575.English.dist"
     },
+    "https://swdist.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/042-25643.English.dist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "042-25643.English.dist",
+      "sha256": "0bgh1vxwsj49n6x9xj9bxyb1niwh42k0x3fynrggaz2lqj5k5pl9",
+      "url": "https://swdist.apple.com/content/downloads/25/45/042-25643-A_KS23W0LI3U/f93qd41yyv7b4a4jmubqoiq89ldcpl6bbp/042-25643.English.dist"
+    },
     "https://swdist.apple.com/content/downloads/26/34/032-82176-A_8REZNXFIVG/emf4n3m7klcrjxsfxytps0km45fnjz5lgn/032-82176.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -407,10 +414,10 @@
       "url": "https://swdist.apple.com/content/downloads/63/49/032-84910-A_3SSTBN1HDA/h89vitwfbzt54jcbwpfwkmrn12smedicny/032-84910.English.dist"
     },
     "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"BE0F2A13B5B32DF16B7F87468606E3B7\"",
+      "etag": "\"214B778FFA7F60AD472BCC699AA55635\"",
       "ignore_last_modified": true,
       "name": "index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "14sk1914fwk1gni530c43wqiblv54vcvf2yccg74ic89kw4znxvj",
+      "sha256": "0w5j37n86qi1z8m985rs7cq5iqsgbmi3k2ksq1pknalmg5kcnirk",
       "url": "https://swscan.apple.com/content/catalogs/others/index-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
