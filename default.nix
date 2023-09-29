@@ -157,7 +157,8 @@ rec {
       -qmp unix:${qmpSocket},server,nowait \
     '' +
     lib.optionalString (iso != null) ''
-      -cdrom ${iso} \
+      -drive id=CDROM,if=none,file=${iso},snapshot=on \
+      -device ide-hd,bus=sata.4,drive=CDROM \
     '' + opts + ''
       -vnc unix:vnc.socket -daemonize
     '');
