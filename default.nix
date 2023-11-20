@@ -149,9 +149,9 @@ rec {
       -drive if=pflash,format=raw,readonly=on,file=${osxkvm}/OVMF_CODE.fd \
       -drive if=pflash,format=qcow2,file=${vars} \
       -drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore/OpenCore.qcow2 \
-      -device ide-hd,bus=sata.0,drive=OpenCoreBoot \
+      -device ide-hd,bus=sata.0,drive=OpenCoreBoot,model=OpenCoreBoot \
       -drive id=MacHDD,if=none,file=${hdd},format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
-      -device ide-hd,bus=sata.1,drive=MacHDD \
+      -device ide-hd,bus=sata.1,drive=MacHDD,model=MacHDD \
       -netdev user,id=net0,hostfwd=tcp:127.0.0.1:${vmSshPort}-:22 \
       -device virtio-net,netdev=net0,id=net0 \
     '' +
@@ -160,7 +160,7 @@ rec {
     '' +
     lib.optionalString (iso != null) ''
       -drive id=CDROM,if=none,file=${iso},snapshot=on \
-      -device ide-hd,bus=sata.4,drive=CDROM \
+      -device ide-hd,bus=sata.4,drive=CDROM,model=CDROM \
     '' + opts + ''
       -vnc unix:vnc.socket -daemonize
     '');
@@ -172,9 +172,9 @@ rec {
         qmpSocket = "vm.socket";
         opts = ''
           -drive id=InstallHDD,if=none,file=installhdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
-          -device ide-hd,bus=sata.2,drive=InstallHDD \
+          -device ide-hd,bus=sata.2,drive=InstallHDD,model=InstallHDD \
           -drive id=InstallMediaBase,if=none,format=dmg,snapshot=on,file=${baseSystemImage} \
-          -device ide-hd,bus=sata.3,drive=InstallMediaBase \
+          -device ide-hd,bus=sata.3,drive=InstallMediaBase,model=InstallMediaBase \
         '';
       }}
 
@@ -183,17 +183,25 @@ rec {
 
     initScript = pkgs.writeScript "initScript.sh" ''
       # format drives
-      # figure out which drive is bigger first
-      # macos assignes our drives randomly to disk0 and disk1
-      getDiskSize () {
+      processDisk () {
         diskutil info -plist $1 > /tmp/sizeinfo
-        /usr/libexec/PlistBuddy -c 'Print :Size' /tmp/sizeinfo
+        MediaName="$(/usr/libexec/PlistBuddy -c 'Print :MediaName' /tmp/sizeinfo)"
+        if [ "$MediaName" = 'MacHDD' ]
+        then
+          echo "Formatting MacHDD ($1)..."
+          diskutil eraseDisk APFSX MacHDD GPT $1
+        fi
+        if [ "$MediaName" = 'InstallHDD' ]
+        then
+          echo "Formatting InstallHDD ($1)..."
+          diskutil eraseDisk APFSX InstallHDD GPT $1
+        fi
       }
-      [ $(getDiskSize /dev/disk0) -gt $(getDiskSize /dev/disk1) ]
-      A=$?
-      B=$((1 - $A))
-      diskutil eraseDisk APFSX MacHDD GPT /dev/disk$A
-      diskutil eraseDisk APFSX InstallHDD GPT /dev/disk$B
+      # drives should have small indexes
+      processDisk /dev/disk0
+      processDisk /dev/disk1
+      processDisk /dev/disk2
+      processDisk /dev/disk3
 
       # work around bug in installer postinstall scripts
       ln -s /Volumes/InstallHDD/Applications /Volumes/InstallHDDApplications
@@ -364,7 +372,7 @@ rec {
           inherit hdd vars;
           opts = ''
             -drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
-            -device ide-hd,bus=sata.2,drive=MountHDD \
+            -device ide-hd,bus=sata.2,drive=MountHDD,model=MountHDD \
           '';
         }}
         for j in {1..30}
