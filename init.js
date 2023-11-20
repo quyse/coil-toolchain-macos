@@ -183,7 +183,7 @@ const aFewAttempts = async (message, attempt, recover) => {
   });
 
   console.log('Starting init script.');
-  await typeText(socket, '/Volumes/QEMU\\ VVFAT/init.sh\n');
+  await typeText(socket, '/Volumes/CDROM/init.sh\n');
 
   console.log('Done.');
   socket.close();

@@ -115,6 +115,8 @@ rec {
       pushd iso/installer.pkg
       ${installerScript osInstallersByVersion."${version}"}
       popd
+      ln -s ${initScript} iso/init.sh
+      ln -s ${postinstallPackage} iso/bootstrap.pkg
       ${pkgs.cdrtools}/bin/mkisofs -quiet -iso-level 3 -udf -follow-links -o $out iso
     '';
 
@@ -165,9 +167,6 @@ rec {
 
     runInstall = { hdd, vars }: pkgs.writeShellScript "runInstall.sh" ''
       set -eu
-      mkdir -p floppy/scripts
-      cp ${initScript} floppy/init.sh
-      cp ${postinstallPackage} floppy/bootstrap.pkg
       ${runVMScript {
         inherit hdd vars iso;
         qmpSocket = "vm.socket";
@@ -176,8 +175,6 @@ rec {
           -device ide-hd,bus=sata.2,drive=InstallHDD \
           -drive id=InstallMediaBase,if=none,format=dmg,snapshot=on,file=${baseSystemImage} \
           -device ide-hd,bus=sata.3,drive=InstallMediaBase \
-          -drive id=ScriptMedia,if=none,file=fat:rw:$PWD/floppy,format=vvfat,cache=unsafe \
-          -device ide-hd,bus=sata.5,drive=ScriptMedia \
         '';
       }}
 
@@ -206,7 +203,7 @@ rec {
       /Volumes/InstallHDD/Applications/Install\ macOS\ *.app/Contents/Resources/startosinstall \
         --agreetolicense --nointeraction --forcequitapps \
         --volume /Volumes/MacHDD \
-        --installpackage /Volumes/QEMU\ VVFAT/bootstrap.pkg
+        --installpackage /Volumes/CDROM/bootstrap.pkg
     '';
 
     postinstallPackage = let
@@ -312,6 +309,7 @@ rec {
     '';
 
     initialImage = pkgs.runCommand "macos_${version}.qcow2" {} ''
+      set -eu
       mkdir $out
       ${qemu}/bin/qemu-img create -qf qcow2 $out/hdd.qcow2 256G
       ${qemu}/bin/qemu-img create -qf qcow2 installhdd.qcow2 128G
