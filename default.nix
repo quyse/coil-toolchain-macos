@@ -4,6 +4,7 @@
 , xml ? toolchain.utils.xml
 , fixedsFile ? ./fixeds.json
 , fixeds ? lib.importJSON fixedsFile
+, dryRunFixeds ? false
 }:
 
 rec {
@@ -21,9 +22,8 @@ rec {
     ))
     # process
     (lib.mapAttrsToList (key: product: let
-      distributionXml = pkgs.fetchurl {
-        inherit (fixeds.fetchurl."${product.Distributions.English}") url sha256 name;
-        meta = metaUnfree;
+      distributionXml = fetchFixed {
+        url = product.Distributions.English;
       };
       distributionJson = pkgs.runCommand "${key}.json" {} ''
         ${pkgs.yq}/bin/xq < ${distributionXml} > $out
@@ -90,12 +90,12 @@ rec {
     (map (pkg: lib.optional (pkg ? URL) pkg.URL))
     lib.concatLists
     (map (url: let
-      fixed = fixeds.fetchurl."${url}";
+      fixed = fetchFixed {
+        inherit url;
+        skipOnDryRun = true;
+      };
     in ''
-      ln -s ${pkgs.fetchurl {
-        inherit (fixed) url sha256 name;
-        meta = metaUnfree;
-      }} ${lib.escapeShellArg fixed.name}
+      ln -s ${fixed} ${lib.escapeShellArg (nameOfFixed fixed)}
     ''))
     (lib.sort (a: b: a < b))
     lib.concatStrings
@@ -105,12 +105,12 @@ rec {
     baseSystem = osInstallersByVersion."${baseSystemVersion}";
     findSinglePackage = name: with lib;
       (findSingle (p: last (splitString "/" p.URL) == name) null null baseSystem.Packages).URL;
-    baseSystemImage = pkgs.fetchurl {
-      inherit (fixeds.fetchurl."${findSinglePackage "BaseSystem.dmg"}") url sha256 name;
-      meta = metaUnfree;
+    baseSystemImage = fetchFixed {
+      url = findSinglePackage "BaseSystem.dmg";
+      skipOnDryRun = true;
     };
 
-    iso = pkgs.runCommand "fullInstaller.iso" {} ''
+    iso = runCommandOrSkipOnDryRun "fullInstaller.iso" {} ''
       mkdir -p iso/installer.pkg
       pushd iso/installer.pkg
       ${installerScript osInstallersByVersion."${version}"}
@@ -316,7 +316,7 @@ rec {
       ${pkgs.xar}/bin/xar --compression none -cf $out *
     '';
 
-    initialImage = pkgs.runCommand "macos_${version}.qcow2" {} ''
+    initialImage = runCommandOrSkipOnDryRun "macos_${version}.qcow2" {} ''
       set -eu
       mkdir $out
       ${qemu}/bin/qemu-img create -qf qcow2 $out/hdd.qcow2 256G
@@ -356,7 +356,7 @@ rec {
       vars = if fastHddOut then "$out/vars.qcow2" else "vars.qcow2";
       mountIn = "/Volumes/MountHDD/in";
       mountOut = "/Volumes/MountHDD/out";
-    in pkgs.runCommand name (if impure then { __impure = true; } else {}) ''
+    in runCommandOrSkipOnDryRun name (if impure then { __impure = true; } else {}) ''
       set -eu
       ${lib.optionalString fastHddOut ''
         mkdir $out
@@ -471,12 +471,11 @@ rec {
   };
 
   fetchPlist = url: let
-    fixed = fixeds.fetchurl."${url}";
-  in pkgs.runCommand "${fixed.name}.json" {} ''
-    ${plist2json}/bin/plist2json < ${pkgs.fetchurl {
-      inherit (fixed) url sha256 name;
-      meta = metaUnfree;
-    }} > $out
+    fixed = fetchFixed {
+      inherit url;
+    };
+  in pkgs.runCommand "${nameOfFixed fixed}.json" {} ''
+    ${plist2json}/bin/plist2json < ${fixed} > $out
   '';
 
   osxkvm = pkgs.fetchgit {
@@ -537,11 +536,65 @@ rec {
     license = lib.licenses.unfree;
   };
 
+  fetchFixed = { url, skipOnDryRun ? false }: if dryRunFixeds
+    then let
+      fileExt = lib.last (lib.splitString "." url);
+      ignoreEtag = {
+        dist = true;
+        plist = true;
+        smd = true;
+      }."${fileExt}" or false;
+    in builtins.trace "FIXED_FETCHURL: ${builtins.toJSON ({
+      inherit url;
+      ignore_last_modified = true;
+    } // lib.optionalAttrs ignoreEtag {
+      ignore_etag = true;
+    })}" (if skipOnDryRun then pkgs.writeText "fetchFixed_dryRun" url else builtins.fetchurl url)
+    else pkgs.fetchurl {
+      inherit (fixeds.fetchurl."${url}") url sha256 name;
+      meta = metaUnfree;
+    }
+  ;
+  runCommandOrSkipOnDryRun = if dryRunFixeds
+    then name: env: script: pkgs.writeText "runCommandOrSkipOnDryRun_dryRun" script
+    else pkgs.runCommand
+  ;
+  nameOfFixed = fixed: if builtins.typeOf fixed == "string"
+    then lib.last (lib.splitString "/" fixed)
+    else fixed.name;
+
   touch = {
     inherit catalogPlist allInstallersMetadatas vmUserKey;
     inherit (packages) initialImage;
     clToolsImage = packages.clToolsImage {};
 
-    autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
+    autoUpdateScript = pkgs.writeShellScript "autoUpdateScript" ''
+      set -euo pipefail
+
+      nix build -L --impure --expr ${lib.escapeShellArg ''
+        (import ${./.} {
+          toolchain = import ${toolchain.path} {};
+          dryRunFixeds = true;
+        }).touch
+      ''} --no-link 2>&1 \
+      | ${pkgs.gnugrep}/bin/grep -F FIXED_FETCHURL \
+      | ${pkgs.gnused}/bin/sed -Ee 's/^.*FIXED_FETCHURL: (.+)$/\1/' \
+      | ${pkgs.jq}/bin/jq -sS --slurpfile fixeds ${fixedsFile} ${lib.escapeShellArg ''
+        $fixeds[0].fetchurl as $fetchurl_old |
+        $fixeds[0] + {
+          fetchurl: map({
+            key: .url,
+            value: (if $fetchurl_old[.url]
+              then $fetchurl_old[.url] + .
+              else .
+            end)
+          }) | from_entries
+        }
+      ''} > fixeds1.json
+
+      ${toolchain.autoUpdateFixedsScript "./fixeds1.json"}
+
+      rm fixeds1.json
+    '';
   };
 }
