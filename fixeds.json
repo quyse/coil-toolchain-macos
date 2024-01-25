@@ -217,13 +217,6 @@
       "sha256": "18xk4k7vjpq3awbn9i7hvmln92vgx8170cvr5scqjpaqp6vf8rrl",
       "url": "https://swdist.apple.com/content/downloads/14/43/042-82952-A_GEJ3YDGEVG/cxed0qvmvtdvuix3xskr6zz1o4nc8fwry0/042-82952.English.dist"
     },
-    "https://swdist.apple.com/content/downloads/15/25/042-55586-A_3K88VDWWUI/sjuqtms3bl3dpjg6ii9i5bjkhihj59qxaj/042-55586.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "042-55586.English.dist",
-      "sha256": "0h9sis2lixkh1qaa2fshk25f61pcb1hw6r0ci2cmqvacf0ksjbsg",
-      "url": "https://swdist.apple.com/content/downloads/15/25/042-55586-A_3K88VDWWUI/sjuqtms3bl3dpjg6ii9i5bjkhihj59qxaj/042-55586.English.dist"
-    },
     "https://swdist.apple.com/content/downloads/17/32/061-26589-A_8GJTCGY9PC/25fhcu905eta7wau7aoafu8rvdm7k1j4el/061-26589.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
@@ -259,26 +252,12 @@
       "sha256": "05kdd1dl7j7zqdk8niimxdc7scn2k4slwbjpjch83iff26ddhz3r",
       "url": "https://swdist.apple.com/content/downloads/24/37/052-09398-A_DIKZGBNOM0/y4rz9dued01dtyl65nxqgd08wj2ar5cr6v/052-09398.English.dist"
     },
-    "https://swdist.apple.com/content/downloads/26/09/042-58988-A_114Q05ZS90/yudaal746aeavnzu5qdhk26uhlphm3r79u/042-58988.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "042-58988.English.dist",
-      "sha256": "13layl9dy2ky6fh5smka0k49w3lg2gzvmy7zaf8d8b5sh82kcra2",
-      "url": "https://swdist.apple.com/content/downloads/26/09/042-58988-A_114Q05ZS90/yudaal746aeavnzu5qdhk26uhlphm3r79u/042-58988.English.dist"
-    },
     "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/001-68446.English.dist": {
       "ignore_etag": true,
       "ignore_last_modified": true,
       "name": "001-68446.English.dist",
       "sha256": "0wa78adyhqw9dv7jnqllx5w8s0kl19fkz5w175hzrrchkk0bqvkc",
       "url": "https://swdist.apple.com/content/downloads/26/37/001-68446/r1dbqtmf3mtpikjnd04cq31p4jk91dceh8/001-68446.English.dist"
-    },
-    "https://swdist.apple.com/content/downloads/28/01/042-55926-A_7GZJNO2M4I/asqcyheggme9rflzb3z3pr6vbp0gxyk2eh/042-55926.English.dist": {
-      "ignore_etag": true,
-      "ignore_last_modified": true,
-      "name": "042-55926.English.dist",
-      "sha256": "023nnvbrz94275r289g4r5a4fz2v06dzsax2sjynp4i49sy6r0vn",
-      "url": "https://swdist.apple.com/content/downloads/28/01/042-55926-A_7GZJNO2M4I/asqcyheggme9rflzb3z3pr6vbp0gxyk2eh/042-55926.English.dist"
     },
     "https://swdist.apple.com/content/downloads/32/13/052-33049-A_UX3Z28TPLL/702vi772ckrytq1r67eli9zrgsu8jxxoqw/052-33049.English.dist": {
       "ignore_etag": true,
@@ -400,10 +379,10 @@
       "url": "https://swdist.apple.com/content/downloads/62/31/042-78233-A_YIMC5ZQM8T/yj7iay56cmvc2cux0qm55lfweb2u90euyo/042-78233.English.dist"
     },
     "https://swscan.apple.com/content/catalogs/others/index-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"785370091DB6F3BF5E19E11D16F4A80B\"",
+      "etag": "\"D77EC6C83FFB016EB90FAA6F02CDFEBD\"",
       "ignore_last_modified": true,
       "name": "index-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "0vvki9b1q13yqqxhrpj6riikn5ybpyifwszxdgv4dfz37fvj907d",
+      "sha256": "1x3vb6a6gfipp4f0i61c973qcs9pwcdz3mm1l9s6xfhyj6n4b457",
       "url": "https://swscan.apple.com/content/catalogs/others/index-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
