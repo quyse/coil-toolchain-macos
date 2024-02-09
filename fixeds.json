@@ -364,11 +364,18 @@
       "sha256": "12c3y30zc2zjd32af0akiavkbw0lz25p82i00sd90zn60k94ff6i",
       "url": "https://swdist.apple.com/content/downloads/62/31/042-78233-A_YIMC5ZQM8T/yj7iay56cmvc2cux0qm55lfweb2u90euyo/042-78233.English.dist"
     },
+    "https://swdist.apple.com/content/downloads/62/37/052-40759-A_C4UWOSGC4S/ww0ftcbuatweg276cglca3e2d7g5hpvl2u/052-40759.English.dist": {
+      "ignore_etag": true,
+      "ignore_last_modified": true,
+      "name": "052-40759.English.dist",
+      "sha256": "030z2w6x27sbfc4yabrgdmx6334dc8cj8ps23bzblhwzfsbcy7i5",
+      "url": "https://swdist.apple.com/content/downloads/62/37/052-40759-A_C4UWOSGC4S/ww0ftcbuatweg276cglca3e2d7g5hpvl2u/052-40759.English.dist"
+    },
     "https://swscan.apple.com/content/catalogs/others/index-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog": {
-      "etag": "\"65198259C5156399F390AC98C7C0A75C\"",
+      "etag": "\"F8DCD2FDFF07D08D6E83963A81C9FCFF\"",
       "ignore_last_modified": true,
       "name": "index-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog",
-      "sha256": "0infmj6wnxyma3k8l65l84i88wcq2a3jirxqpqz7q58wycmw97dp",
+      "sha256": "1hdgf6zifpzwlrnvqpv5g9gqkpgyxc2g7xgkxa5jz7nidm9fya6q",
       "url": "https://swscan.apple.com/content/catalogs/others/index-14-13-12-10.16-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog"
     }
   }
