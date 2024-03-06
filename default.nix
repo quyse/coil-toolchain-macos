@@ -568,7 +568,7 @@ rec {
     inherit (packages) initialImage;
     clToolsImage = packages.clToolsImage {};
 
-    autoUpdateScript = pkgs.writeShellScript "autoUpdateScript" ''
+    autoUpdateScript_disabled = pkgs.writeShellScript "autoUpdateScript" ''
       set -euo pipefail
 
       nix build -L --impure --expr ${lib.escapeShellArg ''
