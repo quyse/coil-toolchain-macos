@@ -486,9 +486,6 @@ rec {
   plist2json = pkgs.callPackage ./plist2json {};
 
   qemu = pkgs.qemu_kvm;
-  libguestfs = pkgs.libguestfs-with-appliance.override {
-    inherit qemu; # no need to use full qemu
-  };
 
   # macOS Ventura
   majorOSVersion = "13";
