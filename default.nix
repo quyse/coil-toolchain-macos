@@ -126,43 +126,51 @@ rec {
     , vars
     , iso ? null
     , qmpSocket ? null
-    , opts ? ""
+    , opts ? []
     }: pkgs.writeShellScript "run.sh" (''
-      ${qemu}/bin/qemu-system-x86_64 \
-      -name ${name} \
-      -enable-kvm \
-      -pidfile vm.pid \
-      -smp 4,cores=2,threads=2,sockets=1 \
-      -m 8G \
-      -cpu Penryn,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,+pcid,+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check \
-      -machine q35 \
-      -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" \
-      -smbios type=2 \
-      -device vmware-svga \
-      -rtc base=utc,clock=vm \
-      -usb -device usb-kbd -device usb-mouse \
-      -device usb-ehci,id=ehci \
-      -device nec-usb-xhci,id=xhci \
-      -global nec-usb-xhci.msi=off \
-      -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off \
-      -device ich9-ahci,id=sata \
-      -drive if=pflash,format=raw,readonly=on,file=${osxkvm}/OVMF_CODE.fd \
-      -drive if=pflash,format=qcow2,file=${vars} \
-      -drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore/OpenCore.qcow2 \
-      -device ide-hd,bus=sata.0,drive=OpenCoreBoot,model=OpenCoreBoot \
-      -drive id=MacHDD,if=none,file=${hdd},format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
-      -device ide-hd,bus=sata.1,drive=MacHDD,model=MacHDD \
-      -netdev user,id=net0,hostfwd=tcp:127.0.0.1:${vmSshPort}-:22 \
-      -device virtio-net,netdev=net0,id=net0 \
-    '' +
-    lib.optionalString (qmpSocket != null) ''
-      -qmp unix:${qmpSocket},server,nowait \
-    '' +
-    lib.optionalString (iso != null) ''
-      -drive id=CDROM,if=none,file=${iso},snapshot=on \
-      -device ide-hd,bus=sata.4,drive=CDROM,model=CDROM \
-    '' + opts + ''
-      -vnc unix:vnc.socket -daemonize
+      ${qemu}/bin/qemu-system-x86_64 ${lib.concatStringsSep " " ([
+        "-name ${name}"
+        "-enable-kvm"
+        "-pidfile vm.pid"
+        "-smp 4,cores=2,threads=2,sockets=1"
+        "-m 8G"
+        "-cpu Penryn,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,+pcid,+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check"
+
+        # file-backed memory
+        "-machine type=q35,accel=kvm,memory-backend=pc.ram"
+        "-object memory-backend-file,id=pc.ram,size=8G,mem-path=pc.ram,prealloc=off,share=on,discard-data=on"
+
+        # magic string
+        "-device isa-applesmc,osk='ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc'"
+
+        "-smbios type=2"
+        "-device vmware-svga"
+        "-rtc base=utc,clock=vm"
+        "-usb -device usb-kbd -device usb-mouse"
+        "-device usb-ehci,id=ehci"
+        "-device nec-usb-xhci,id=xhci"
+        "-global nec-usb-xhci.msi=off"
+        "-global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off"
+        "-device ich9-ahci,id=sata"
+        "-drive if=pflash,format=raw,readonly=on,file=${osxkvm}/OVMF_CODE.fd"
+        "-drive if=pflash,format=qcow2,file=${vars}"
+        "-drive id=OpenCoreBoot,if=none,snapshot=on,format=qcow2,file=${osxkvm}/OpenCore/OpenCore.qcow2"
+        "-device ide-hd,bus=sata.0,drive=OpenCoreBoot,model=OpenCoreBoot"
+        "-drive id=MacHDD,if=none,file=${hdd},format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap"
+        "-device ide-hd,bus=sata.1,drive=MacHDD,model=MacHDD"
+        "-netdev user,id=net0,hostfwd=tcp:127.0.0.1:${vmSshPort}-:22"
+        "-device virtio-net,netdev=net0,id=net0"
+      ]
+      ++ lib.optional (qmpSocket != null) "-qmp unix:${qmpSocket},server,nowait"
+      ++ lib.optionals (iso != null) [
+        "-drive id=CDROM,if=none,file=${iso},snapshot=on"
+        "-device ide-hd,bus=sata.4,drive=CDROM,model=CDROM"
+      ]
+      ++ opts
+      ++ [
+        "-vnc unix:vnc.socket"
+        "-daemonize"
+      ])}
     '');
 
     runInstall = { hdd, vars }: pkgs.writeShellScript "runInstall.sh" ''
@@ -170,12 +178,12 @@ rec {
       ${runVMScript {
         inherit hdd vars iso;
         qmpSocket = "vm.socket";
-        opts = ''
-          -drive id=InstallHDD,if=none,file=installhdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
-          -device ide-hd,bus=sata.2,drive=InstallHDD,model=InstallHDD \
-          -drive id=InstallMediaBase,if=none,format=dmg,snapshot=on,file=${baseSystemImage} \
-          -device ide-hd,bus=sata.3,drive=InstallMediaBase,model=InstallMediaBase \
-        '';
+        opts = [
+          "-drive id=InstallHDD,if=none,file=installhdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap"
+          "-device ide-hd,bus=sata.2,drive=InstallHDD,model=InstallHDD"
+          "-drive id=InstallMediaBase,if=none,format=dmg,snapshot=on,file=${baseSystemImage}"
+          "-device ide-hd,bus=sata.3,drive=InstallMediaBase,model=InstallMediaBase"
+        ];
       }}
 
       PATH=$PATH:${pkgs.tesseract4}/bin SOCKET_PATH=vm.socket ${pkgs.nodejs}/bin/node ${./init.js}
@@ -370,10 +378,10 @@ rec {
         echo 'Starting VM...'
         ${runVMScript {
           inherit hdd vars;
-          opts = ''
-            -drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap \
-            -device ide-hd,bus=sata.2,drive=MountHDD,model=MountHDD \
-          '';
+          opts = [
+            "-drive id=MountHDD,if=none,file=mounthdd.qcow2,format=qcow2,cache=unsafe,discard=unmap,detect-zeroes=unmap"
+            "-device ide-hd,bus=sata.2,drive=MountHDD,model=MountHDD"
+          ];
         }}
         for j in {1..30}
         do
