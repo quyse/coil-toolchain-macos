@@ -135,10 +135,7 @@ rec {
         "-smp 4,cores=2,threads=2,sockets=1"
         "-m 8G"
         "-cpu Penryn,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,+pcid,+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check"
-
-        # file-backed memory
-        "-machine type=q35,accel=kvm,memory-backend=pc.ram"
-        "-object memory-backend-file,id=pc.ram,size=8G,mem-path=pc.ram,prealloc=off,share=on,discard-data=on"
+        "-machine type=q35,accel=kvm"
 
         # magic string
         "-device isa-applesmc,osk='ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc'"
