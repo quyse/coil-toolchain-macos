@@ -166,8 +166,11 @@ rec {
       ++ opts
       ++ [
         "-vnc unix:vnc.socket"
-        "-daemonize"
-      ])}
+      ])} &
+      while [[ ! -f vm.pid ${lib.optionalString (qmpSocket != null) ''|| ! -S ${qmpSocket} ''}]]
+      do
+        sleep 1
+      done
     '');
 
     runInstall = { hdd, vars }: pkgs.writeShellScript "runInstall.sh" ''
@@ -333,6 +336,7 @@ rec {
       }}
       echo 'Waiting for install to finish...'
       timeout 1h tail --pid=$(<vm.pid) -f /dev/null
+      wait $(<vm.pid)
     '';
 
     step =
@@ -453,6 +457,7 @@ rec {
         sudo shutdown -h now
       ''} || true
       timeout 60s tail --pid=$(<vm.pid) -f /dev/null
+      wait $(<vm.pid)
       ${afterScript}
     '';
 
